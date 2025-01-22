@@ -1,79 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Login Page</title>
-
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/adminlte/plugins/fontawesome-free/css/all.min.css'); ?>">
-  <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css'); ?>">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/adminlte/dist/css/adminlte.min.css'); ?>">
+  <title>Sistem Wisuda</title>
+  <!-- Link CSS -->
+  <link rel="stylesheet" href="<?php echo base_url('assets/mazor/compiled/css/app.css'); ?>">
+  <link rel="stylesheet" href="<?php echo base_url('assets/mazor/compiled/css/auth.css'); ?>">
+  <!-- Link JavaScript -->
+  <script src="<?php echo base_url('assets/mazor/js/scripts.js'); ?>" defer></script>
 </head>
-<body class="hold-transition login-page">
-<div class="login-box">
-  <div class="login-logo">
-    <a href="<?php echo base_url(); ?>login"><b>Sistem</b>Wisuda</a>
-  </div>
-  <!-- /.login-logo -->
-  <div class="card">
-    <div class="card-body login-card-body">
-      <p class="login-box-msg">Sign in untuk mulai</p>
 
-      <!-- Form Login -->
-      <form action="<?php echo site_url('Auth/process_login'); ?>" method="post">
-        <div class="input-group mb-3">
-          <input type="text" placeholder="Masukan Username" name="username" class="form-control" required>
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-user"></span>
+<body>
+  <div id="auth">
+    <div class="row h-100">
+      <div class="col-lg-5 col-12">
+        <div id="auth-left">
+          <!-- Judul dan Subjudul -->
+          <h1 class="auth-title">Sistem Wisuda</h1>
+          <p class="auth-subtitle mb-5">Sign in untuk mengakses sistem.</p>
+          <!-- Form Login -->
+          <form action="<?php echo site_url('Auth/process_login'); ?>" method="post">
+            <!-- Input Username -->
+            <div class="form-group position-relative has-icon-left mb-4">
+              <input type="text" placeholder="Masukan Username" name="username" class="form-control form-control-xl"
+                required>
+              <div class="form-control-icon">
+                <i class="bi bi-person"></i>
+              </div>
             </div>
-          </div>
-        </div>
-        <div class="input-group mb-3">
-          <input type="password" placeholder="Masukan Password" name="password" class="form-control" required>
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
+            <!-- Input Password -->
+            <div class="form-group position-relative has-icon-left mb-4">
+              <input type="password" placeholder="Masukan Password" name="password" class="form-control form-control-xl"
+                required>
+              <div class="form-control-icon">
+                <i class="bi bi-shield-lock"></i>
+              </div>
             </div>
+            <!-- Pesan Error -->
+            <div class="row">
+              <div class="col-12">
+                <?php if (isset($error)): ?>
+                  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <?php echo $error; ?>
+                  </div>
+                  <script>
+                    setTimeout(function () {
+                      var alert = document.querySelector('.alert');
+                      if (alert) {
+                        alert.classList.remove('show');
+                        alert.classList.add('fade');
+                        setTimeout(function () {
+                          alert.remove();
+                        }, 150);
+                      }
+                    }, 5000); //otomatis hilang setelah 5 detik
+                  </script>
+                <?php endif; ?>
+              </div>
+            </div>
+            <!-- Tombol Login -->
+            <button type="submit" name="login" value="Login"
+              class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Sign In</button>
+          </form>
+          <!-- Link Tambahan -->
+          <div class="text-center mt-5 text-lg fs-4">
+            <p>
+              <a class="font-bold" href="<?= site_url('Forgot') ?>">Lupa kata sandi?</a>
+            </p>
+            <p>
+              <a class="font-bold" href="<?= site_url('home') ?>">Kembali</a>
+            </p>
           </div>
         </div>
-        <div class="row">
-          <!-- Kolom untuk Menampilkan Pesan Kesalahan -->
-          <div class="col-12">
-            <?php if(isset($error)): ?>
-              <div class="alert alert-danger"><?php echo $error; ?></div>
-            <?php endif; ?>
-          </div>
-        </div>
-        <!-- Tombol Login -->
-        <div class="row">
-          <div class="col-4">
-            <button type="submit" name="login" value="Login" class="btn btn-primary btn-block">Sign In</button>
-          </div>
-        </div>
-      </form>
-      <!-- /.social-auth-links -->
-
-      <p class="mb-0">
-        <a href="<?= site_url('home') ?>">Kembali</a>
-        <br><a href="<?= site_url('Forgot') ?>">Forgot Password</a>
-      </p>
+      </div>
+      <!-- Gambar bagian kanan -->
+      <div class="col-lg-7 d-none d-lg-block">
+        <div id="auth-right"></div>
+      </div>
     </div>
-    <!-- /.login-card-body -->
   </div>
-</div>
-<!-- /.login-box -->
-
-<!-- jQuery -->
-<script src="<?php echo base_url('assets/adminlte/plugins/jquery/jquery.min.js'); ?>"></script>
-<!-- Bootstrap 4 -->
-<script src="<?php echo base_url('assets/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js'); ?>"></script>
-<!-- AdminLTE App -->
-<script src="<?php echo base_url('assets/adminlte/dist/js/adminlte.min.js'); ?>"></script>
+  <!-- Script Tambahan -->
+  <script src="<?php echo base_url('assets/mazor/js/initTheme.js'); ?>"></script>
+  <script src="<?php echo base_url('assets/mazor/js/perfect-scrollbar.min.js'); ?>"></script>
+  <script src="<?php echo base_url('assets/mazor/js/app.js'); ?>"></script>
 </body>
+
 </html>

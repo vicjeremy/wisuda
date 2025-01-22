@@ -1,102 +1,114 @@
-<?php 
+<?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Akd extends CI_Controller{
+class Akd extends CI_Controller
+{
 
-	public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
         check_not_login();
         // Cek apakah pengguna sudah login dan waktu terakhir aktif
-		$last_activity = $this->session->userdata('last_activity');
-		$current_time = time(); // Ambil waktu saat ini
-		
-		// Jika waktu terakhir lebih dari 3 jam yang lalu, logout otomatis
-		if ($last_activity && ($current_time - $last_activity) > 1800) {
-			$this->session->unset_userdata('id');
-			$this->session->unset_userdata('level');
-			redirect('login');
-		}
+        $last_activity = $this->session->userdata('last_activity');
+        $current_time = time(); // Ambil waktu saat ini
 
-		// Perbarui waktu terakhir aktivitas jika pengguna masih aktif
-		$this->session->set_userdata('last_activity', $current_time);
+        // Jika waktu terakhir lebih dari 3 jam yang lalu, logout otomatis
+        if ($last_activity && ($current_time - $last_activity) > 1800) {
+            $this->session->unset_userdata('id');
+            $this->session->unset_userdata('level');
+            redirect('login');
+        }
+
+        // Perbarui waktu terakhir aktivitas jika pengguna masih aktif
+        $this->session->set_userdata('last_activity', $current_time);
 
         // Load SimpleXLSX
-		require_once APPPATH . 'third_party/src/SimpleXLSX.php';
-        require_once APPPATH . 'third_party/src/SimpleXLSXGen.php'; 
+        require_once APPPATH . 'third_party/src/SimpleXLSX.php';
+        require_once APPPATH . 'third_party/src/SimpleXLSXGen.php';
 
     }
-    
-    public function index() {
+
+    public function index()
+    {
         $this->load->view('tpl/v_head');
-            $this->load->view('tpl/v_menu');
-            $this->load->view('akd/v_akd');
+        $this->load->view('tpl/v_menu');
+        $this->load->view('akd/v_akd');
     }
-	public function add_mhs(){
-		$this->load->view('tpl/v_head');
-		$this->load->view('tpl/v_menu');
-		$this->load->view('akd/add_mhs');
-	}
+    public function add_mhs()
+    {
+        $this->load->view('tpl/v_head');
+        $this->load->view('tpl/v_menu');
+        $this->load->view('akd/add_mhs');
+    }
 
-    public function save_mhs(){
+    public function save_mhs()
+    {
         if (isset($_FILES['file']) && $_FILES['file']['error'] == 0) {
             $file = $_FILES['file']['tmp_name'];
-    
+
             // Memuat SimpleXLSX
             require_once APPPATH . 'third_party/src/SimpleXLSX.php';
             $xlsx = new SimpleXLSX($file);
-    
+
             if ($xlsx->success()) {
                 $rows = $xlsx->rows();
-    
+
                 // Validasi format header
                 $expectedHeader = [
-                    'No', 'Nama', 'Tempat Lahir', 'Tanggal Lahir',
-                    'NIM', 'Fakultas', 'Prog_studi', 'IPK'
+                    'No',
+                    'Nama',
+                    'Tempat Lahir',
+                    'Tanggal Lahir',
+                    'NIM',
+                    'Fakultas',
+                    'Prog_studi',
+                    'IPK'
                 ];
                 $actualHeader = array_map('trim', $rows[0] ?? []);
-    
+
                 if ($actualHeader !== $expectedHeader) {
                     $this->session->set_flashdata('error', 'Format file Excel tidak sesuai. Harap gunakan format yang benar.');
                     redirect('akd/add_mhs');
                     return;
                 }
-    
+
                 $duplicateNims = []; // Array untuk menyimpan NIM yang duplikat
                 $successCount = 0;
-    
+
                 // Proses data jika header valid
                 foreach ($rows as $index => $row) {
-                    if ($index == 0) continue; // Skip header row
-    
+                    if ($index == 0)
+                        continue; // Skip header row
+
                     $nim = $row[4] ?? null;
-    
+
                     // Abaikan jika NIM kosong
                     if (empty($nim)) {
                         continue;
                     }
-    
+
                     // Cek apakah NIM sudah ada di database
                     $exists = $this->db->get_where('tbl_mhs', ['nim' => $nim])->row();
-    
+
                     if ($exists) {
                         $duplicateNims[] = $nim; // Simpan NIM yang sudah ada
                         continue; // Abaikan data ini
                     }
-    
+
                     // Konversi tanggal lahir ke format pass (ddmmyy)
                     $tgl_lahir_raw = $row[3] ?? null;
                     $tgl_lahir = $this->convert_date($tgl_lahir_raw);
-    
+
                     // Data untuk tbl_mhs
                     $data_mhs = array(
-                        'nim'       => $nim,
-                        'nama'      => $row[1] ?? null,
+                        'nim' => $nim,
+                        'nama' => $row[1] ?? null,
                         // 'nik'       => $row[2] ?? null,
                         'lok_lahir' => $row[2] ?? null,
                         'tgl_lahir' => $tgl_lahir_raw,
-                        'fakultas'  => $row[5] ?? null,
-                        'prodi'     => $row[6] ?? null,
-                        'ipk'       => $row[7] ?? null,
+                        'fakultas' => $row[5] ?? null,
+                        'prodi' => $row[6] ?? null,
+                        'ipk' => $row[7] ?? null,
                         // 'skripsi'   => $row[8] ?? null,
                         // // 'alamat'    => null,
                         // 'email'     => null,
@@ -109,16 +121,16 @@ class Akd extends CI_Controller{
                         // 'sts_keu'   => null,
                         // 'sts_toga'  => null,
                     );
-    
+
                     $this->M_akd->insert_data($data_mhs);
-    
+
                     // Setelah konversi tanggal lahir
                     $data_akun = array(
-                        'user'  => $nim,
-                        'pass'  => md5($tgl_lahir), // Hasil konversi tanggal lahir ke MD5
+                        'user' => $nim,
+                        'pass' => md5($tgl_lahir), // Hasil konversi tanggal lahir ke MD5
                         'level' => 6
                     );
-    
+
                     // Abaikan jika `pass` bernilai NULL
                     if ($tgl_lahir !== null) {
                         $this->M_akd->insert_akun($data_akun);
@@ -130,19 +142,19 @@ class Akd extends CI_Controller{
                     if ($nim !== null) {
                         $this->M_toga->insert_toga($data_toga);
                     }
-                    
+
                     $successCount++;
                 }
-    
+
                 // Buat flashdata untuk hasil import
                 if ($successCount > 0) {
                     $this->session->set_flashdata('message', "$successCount data berhasil diimport!");
                 }
-    
+
                 if (!empty($duplicateNims)) {
                     $this->session->set_flashdata('error', 'Data dengan NIM berikut sudah ada: ' . implode(', ', $duplicateNims));
                 }
-    
+
                 redirect('akd/add_mhs');
             } else {
                 $this->session->set_flashdata('error', 'Gagal membaca file Excel!');
@@ -154,56 +166,66 @@ class Akd extends CI_Controller{
         }
     }
 
-    
-/**
- * Helper function to convert date to ddmmyy format
- */
-private function convert_date($date)
-{
-    if (empty($date)) return null; // Jika tanggal kosong, kembalikan null
-    
-    $month_map = [
-        'Januari' => '01', 'Februari' => '02', 'Maret' => '03',
-        'April' => '04', 'Mei' => '05', 'Juni' => '06',
-        'Juli' => '07', 'Agustus' => '08', 'September' => '09',
-        'Oktober' => '10', 'November' => '11', 'Desember' => '12'
-    ];
 
-    $parts = explode(' ', trim($date)); // Pisahkan tanggal menjadi bagian-bagian
+    /**
+     * Helper function to convert date to ddmmyy format
+     */
+    private function convert_date($date)
+    {
+        if (empty($date))
+            return null; // Jika tanggal kosong, kembalikan null
 
-    // Validasi jika format tidak sesuai (pastikan ada 3 bagian)
-    if (count($parts) !== 3) {
-        return null; // Format salah, kembalikan null
+        $month_map = [
+            'Januari' => '01',
+            'Februari' => '02',
+            'Maret' => '03',
+            'April' => '04',
+            'Mei' => '05',
+            'Juni' => '06',
+            'Juli' => '07',
+            'Agustus' => '08',
+            'September' => '09',
+            'Oktober' => '10',
+            'November' => '11',
+            'Desember' => '12'
+        ];
+
+        $parts = explode(' ', trim($date)); // Pisahkan tanggal menjadi bagian-bagian
+
+        // Validasi jika format tidak sesuai (pastikan ada 3 bagian)
+        if (count($parts) !== 3) {
+            return null; // Format salah, kembalikan null
+        }
+
+        $day = str_pad($parts[0], 2, '0', STR_PAD_LEFT); // Pastikan 2 digit
+        $month = $month_map[$parts[1]] ?? null; // Cek apakah nama bulan valid
+        $year = substr($parts[2], -2); // Ambil 2 digit terakhir dari tahun
+
+        // Jika bulan tidak valid, kembalikan null
+        if (!$month) {
+            return null;
+        }
+
+        return $day . $month . $year;
     }
 
-    $day = str_pad($parts[0], 2, '0', STR_PAD_LEFT); // Pastikan 2 digit
-    $month = $month_map[$parts[1]] ?? null; // Cek apakah nama bulan valid
-    $year = substr($parts[2], -2); // Ambil 2 digit terakhir dari tahun
 
-    // Jika bulan tidak valid, kembalikan null
-    if (!$month) {
-        return null;
+
+    public function lihat_data()
+    {
+        $data['title'] = 'Daftar Mahasiswa'; // Judul halaman
+        $data['mahasiswa'] = $this->M_akd->get_all_data(); // Ambil semua data mahasiswa
+
+        // Load view dengan data mahasiswa
+        $this->load->view('tpl/v_head');
+        $this->load->view('tpl/v_menu');
+        $this->load->view('akd/v_data', $data);
     }
 
-    return $day . $month . $year;
-}
 
 
-
-	public function lihat_data()
-	{
-		$data['title'] = 'Daftar Mahasiswa'; // Judul halaman
-		$data['mahasiswa'] = $this->M_akd->get_all_data(); // Ambil semua data mahasiswa
-
-		// Load view dengan data mahasiswa
-		$this->load->view('tpl/v_head');
-		$this->load->view('tpl/v_menu');
-		$this->load->view('akd/v_data', $data);
-	}
-
-	
-
-	public function update() {
+    public function update()
+    {
         // Load model
         $this->load->model('M_akd');
 
@@ -237,7 +259,8 @@ private function convert_date($date)
         redirect('Akd/lihat_data');
     }
 
-	public function delete($nim) {
+    public function delete($nim)
+    {
         // Load model
         $this->load->model('M_akd');
 

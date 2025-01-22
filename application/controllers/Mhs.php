@@ -24,9 +24,13 @@ class Mhs extends CI_Controller {
     }
 
 	public function index() {
-		$this->load->view('tpl/v_head');
-		$this->load->view('tpl/v_menu');
-		$this->load->view('mhs/v_mhs');
+		$nim = $this->session->userdata('nim'); // Ambil NIM dari session
+		$this->load->model('M_mhs');
+		$rs_data['result'] = $this->M_mhs->get_data_by_nim($nim); // Ambil data mahasiswa
+
+		// $this->load->view('tpl/v_head');
+		// $this->load->view('tpl/v_menu');
+		$this->load->view('mhs/v_mhs', $rs_data); // Pass the data to the view
 	}
     public function lihat_data(){
 		$nim = $this->session->userdata('nim'); // Ambil NIM dari session
@@ -54,6 +58,6 @@ class Mhs extends CI_Controller {
 		$this->load->model('M_mhs');
 		$this->M_mhs->update_mahasiswa($data); // Buat fungsi ini di model
 		$this->session->set_flashdata('update_success', true);
-		redirect('mhs/lihat_data'); // Kembali ke form edit
+		redirect('mhs'); // Kembali ke form edit
 	}
 }

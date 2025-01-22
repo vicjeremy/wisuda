@@ -66,7 +66,7 @@
                           Edit
                         </button></td>
                         <td>
-                        <a href="<?php echo base_url(); ?>akd/delete<?php echo $value['nim']; ?>" class="btn btn-danger">Delete</a>
+                        <a href="<?php echo base_url(); ?>akd/delete/<?php echo $value['nim']; ?>" class="btn btn-danger">Delete</a>
                     </td>
                     </tr>
                   <?php endforeach; ?>

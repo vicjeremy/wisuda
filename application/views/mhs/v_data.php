@@ -36,6 +36,7 @@
               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#inputModal">
                 Edit Data
               </button>
+              <!-- Table -->
               <table id="example2" class="table table-bordered table-striped">
                 <thead>
                   <tr>

@@ -1,160 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dashboard</title>
 
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <link rel="stylesheet" href="<?php echo base_url('assets/adminlte/plugins/fontawesome-free/css/all.min.css'); ?>">
-  <!-- IonIcons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- DataTables -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css'); ?>">
-  <link rel="stylesheet" href="<?php echo base_url('assets/adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css'); ?>">
-  <link rel="stylesheet" href="<?php echo base_url('assets/adminlte/plugins/datatables-buttons/css/buttons.bootstrap4.min.css'); ?>">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/adminlte/dist/css/adminlte.min.css'); ?>">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Landing Page</title>
+  <link rel="stylesheet" href="assets/mazor/compiled/css/app.css" />
+  <link rel="stylesheet" href="assets/mazor/compiled/css/app-dark.css" />
+  <link rel="stylesheet" href="assets/mazor/extensions/@fortawesome/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" crossorigin href="assets/mazor/compiled/css/iconly.css" />
+  <script src="assets/mazor/js/scripts.js" defer></script>
 </head>
 
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Landing Page</h1>
-          </div>
-          <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="<?php echo base_url('login'); ?>">Login</a></li>
-              <li class="breadcrumb-item active">Landing Page</li>
-            </ol>
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
-
-    <!-- =========================================================== -->
-    <h5 class="mt-4 mb-2"></h5>
-        <div class="row">
-        <div class="col-md-3 col-sm-6 col-12">
-          <div class="info-box bg-info">
-              <span class="info-box-icon"><i class="far fa-bookmark"></i></span>
-
-              <div class="info-box-content">
-                  <span class="info-box-text">Jumlah Mahasiswa</span>
-                  <span class="info-box-number"><?php echo number_format($student_count); ?></span>
-
-                  <div class="progress">
-                      <div class="progress-bar" style="width: 100%"></div>
-                  </div>
-                  <span class="progress-description">
-                      Total mahasiswa
-                  </span>
-              </div>
-              <!-- /.info-box-content -->
-          </div>
-          <!-- /.info-box -->
-      </div>
-
-          <!-- /.col -->
-          <div class="col-md-3 col-sm-6 col-12">
-            <div class="info-box bg-success">
-                <span class="info-box-icon"><i class="far fa-thumbs-up"></i></span>
-
-                <div class="info-box-content">
-                    <span class="info-box-text">Mahasiswa Lunas</span>
-                    <span class="info-box-number"><?php echo number_format($paid_students); ?></span>
-
-                    <div class="progress">
-                        <div class="progress-bar" style="width: 100%"></div>
-                    </div>
-                    <span class="progress-description">
-                        Total mahasiswa lunas
-                    </span>
+<body>
+  <script src="assets/static/js/initTheme.js"></script>
+  <div id="app">
+    <div id="main">
+      <header class="mb-3">
+        <a href="#" class="burger-btn d-block d-xl-none">
+          <i class="bi bi-justify fs-3"></i>
+        </a>
+      </header>
+      <main class="page-content">
+        <section class="content-header">
+          <div class="container-fluid">
+            <div class="row mb-2">
+              <!-- Toggle tema -->
+              <div class="theme-toggle d-flex gap-2 mt-2 justify-content-end align-items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
+                  role="img" class="iconify iconify--system-uicons" width="20" height="20"
+                  preserveAspectRatio="xMidYMid meet" viewBox="0 0 21 21">
+                  <g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path
+                      d="M10.5 14.5c2.219 0 4-1.763 4-3.982a4.003 4.003 0 0 0-4-4.018c-2.219 0-4 1.781-4 4c0 2.219 1.781 4 4 4zM4.136 4.136L5.55 5.55m9.9 9.9l1.414 1.414M1.5 10.5h2m14 0h2M4.135 16.863L5.55 15.45m9.899-9.9l1.414-1.415M10.5 19.5v-2m0-14v-2"
+                      opacity=".3"></path>
+                    <g transform="translate(-210 -1)">
+                      <path d="M220.5 2.5v2m6.5.5l-1.5 1.5"></path>
+                      <circle cx="220.5" cy="11.5" r="4"></circle>
+                      <path d="m214 5l1.5 1.5m5 14v-2m6.5-.5l-1.5-1.5M214 18l1.5-1.5m-4-5h2m14 0h2"></path>
+                    </g>
+                  </g>
+                </svg>
+                <div class="form-check form-switch fs-6">
+                  <input class="form-check-input  me-0" type="checkbox" id="toggle-dark" style="cursor: pointer">
+                  <label class="form-check-label"></label>
                 </div>
-                <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-        </div>
-
-
-          <div class="col-md-3 col-sm-6 col-12">
-            <div class="info-box bg-warning">
-              <span class="info-box-icon"><i class="far fa-calendar-alt"></i></span>
-
-              <div class="info-box-content">
-              <span class="info-box-text">Sudah Ambil Toga</span>
-                    <span class="info-box-number"><?php echo number_format($sudah_ambil); ?></span>
-
-                    <div class="progress">
-                        <div class="progress-bar" style="width: 100%"></div>
-                    </div>
-                    <span class="progress-description">
-                        Total sudah ambil toga
-                    </span>
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
+                  role="img" class="iconify iconify--mdi" width="20" height="20" preserveAspectRatio="xMidYMid meet"
+                  viewBox="0 0 24 24">
+                  <path fill="currentColor"
+                    d="m17.75 4.09l-2.53 1.94l.91 3.06l-2.63-1.81l-2.63 1.81l.91-3.06l-2.53-1.94L12.44 4l1.06-3l1.06 3l3.19.09m3.5 6.91l-1.64 1.25l.59 1.98l-1.7-1.17l-1.7 1.17l.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95l2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85c-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14c.4-.4.82-.76 1.27-1.08c.75-.53 1.93.36 1.85 1.19c-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82c-2.81 3.14-2.7 7.96.31 10.98c3.02 3.01 7.84 3.12 10.98.31Z">
+                  </path>
+                  </path>
+                </svg>
               </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-
-          <div class="col-md-3 col-sm-6 col-12">
-            <div class="info-box bg-danger">
-              <span class="info-box-icon"><i class="fas fa-comments"></i></span>
-
-              <div class="info-box-content">
-              <span class="info-box-text">Jumlah Tamu</span>
-                    <span class="info-box-number"><?php echo number_format($tamu); ?></span>
-
-                    <div class="progress">
-                        <div class="progress-bar" style="width: 100%"></div>
-                    </div>
-                    <span class="progress-description">
-                        Total Tamu
-                    </span>
+              <!-- ./Toggle tema -->
+              <div class="col-sm-6">
+                <h1>Landing Page</h1>
               </div>
-              <!-- /.info-box-content -->
+              <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                  <li class="breadcrumb-item"><a href="<?php echo base_url('login'); ?>">Login</a></li>
+                  <li class="breadcrumb-item active">Landing Page</li>
+                </ol>
+              </div>
             </div>
-            <!-- /.info-box -->
           </div>
+        </section>
 
-          <div class="container mt-4">
-          <h3>Data Mahasiswa</h3>
-          <table class="table table-bordered">
-              <thead>
-                  <tr>
-                      <th>NIM</th>
-                      <th>Status Keuangan</th>
-                      <th>Ambil Toga</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  <?php if (!empty($mhs_data)): ?>
-                      <?php foreach ($mhs_data as $mhs): ?>
+        <section class="row">
+          <div class="col-12 col-lg-9">
+            <div class="row">
+              <div class="col-md-3 col-sm-6 col-12">
+                <div class="card">
+                  <div class="card-body px-4 py-4-5">
+                    <div class="row">
+                      <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
+                        <div class="stats-icon purple mb-2">
+                          <i class="iconly-boldProfile"></i>
+                        </div>
+                      </div>
+                      <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                        <h6 class="text-muted font-semibold">Jumlah Mahasiswa</h6>
+                        <h6 class="font-extrabold mb-0"><?php echo number_format($student_count); ?></h6>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3 col-sm-6 col-12">
+                <div class="card">
+                  <div class="card-body px-4 py-4-5">
+                    <div class="row">
+                      <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
+                        <div class="stats-icon green mb-2">
+                          <i>
+                            <dt class="the-icon">
+                              <span class="fa-fw select-all fas"></span>
+                            </dt>
+                          </i>
+                        </div>
+                      </div>
+                      <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                        <h6 class="text-muted font-semibold">Mahasiswa Lunas</h6>
+                        <h6 class="font-extrabold mb-0"><?php echo number_format($paid_students); ?></h6>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3 col-sm-6 col-12">
+                <div class="card">
+                  <div class="card-body px-4 py-4-5">
+                    <div class="row">
+                      <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
+                        <div class="stats-icon red mb-2">
+                          <i class=""><span class="fa-fw select-all fas"></span></i>
+                        </div>
+                      </div>
+                      <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                        <h6 class="text-muted font-semibold">Sudah Ambil Toga</h6>
+                        <h6 class="font-extrabold mb-0"><?php echo number_format($sudah_ambil); ?></h6>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3 col-sm-6 col-12">
+                <div class="card">
+                  <div class="card-body px-4 py-4-5">
+                    <div class="row">
+                      <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start">
+                        <div class="stats-icon blue mb-2">
+                          <i class="iconly-boldAdd-User"></i>
+                        </div>
+                      </div>
+                      <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                        <h6 class="text-muted font-semibold">Jumlah Tamu</h6>
+                        <h6 class="font-extrabold mb-0"><?php echo number_format($tamu); ?></h6>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Table -->
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Data Mahasiswa</h4>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table table-lg">
+                        <thead>
                           <tr>
-                              <td><?php echo $mhs['nim']; ?></td>
-                                <td><?php echo $mhs['sts_wsd'] == 1 ? '<b>Sudah Lunas</b>' : 'Belum Lunas'; ?></td>
-                              <td><?php echo $mhs['ambil_toga'] == 1 ? '<b>Sudah Ambil</b>' : 'Belum Ambil'; ?></td>
+                            <th>NIM</th>
+                            <th>Status Keuangan</th>
+                            <th>Ambil Toga</th>
                           </tr>
-                      <?php endforeach; ?>
-                  <?php else: ?>
-                      <tr>
-                          <td colspan="3" class="text-center">Tidak ada data</td>
-                      </tr>
-                  <?php endif; ?>
-              </tbody>
-          </table>
+                        </thead>
+                        <tbody>
+                          <?php if (!empty($mhs_data)): ?>
+                            <?php foreach ($mhs_data as $mhs): ?>
+                              <tr>
+                                <td><?php echo $mhs['nim']; ?></td>
+                                <td><?php echo $mhs['sts_wsd'] == 1 ? '<b>Sudah Lunas</b>' : 'Belum Lunas'; ?>
+                                </td>
+                                <td><?php echo $mhs['ambil_toga'] == 1 ? '<b>Sudah Ambil</b>' : 'Belum Ambil'; ?>
+                                </td>
+                              </tr>
+                            <?php endforeach; ?>
+                          <?php else: ?>
+                            <tr>
+                              <td colspan="3" class="text-center">Tidak ada data</td>
+                            </tr>
+                          <?php endif; ?>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+      <div class="footer clearfix mb-0 text-muted">
+        <div class="float-start">
+          <p>&copy; 2025 Sistem Wisuda. Semua hak cipta dilindungi.</p>
+        </div>
       </div>
+    </div>
+  </div>
 
-<!-- jQuery -->
- <script src="<?php echo base_url('assets/adminlte/plugins/jquery/jquery.min.js'); ?>"></script>
-<!-- Bootstrap 4 -->
-<script src="<?php echo base_url('assets/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js'); ?>"></script>
-<!-- AdminLTE App -->
-<script src="<?php echo base_url('assets/adminlte/dist/js/adminlte.min.js'); ?>"></script>
+  <script src="<?php echo base_url('assets/mazor/extensions/perfect-scrollbar/perfect-scrollbar.min.js'); ?>"></script>
+  <script src="<?php echo base_url('assets/mazor/compiled/js/app.js'); ?>"></script>
+  <script src="<?php echo base_url('assets/mazor/static/js/components/dark.js'); ?>"></script>
 </body>
+
 </html>

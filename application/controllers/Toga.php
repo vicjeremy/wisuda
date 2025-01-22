@@ -28,7 +28,7 @@ class Toga extends CI_Controller {
 
 	public function index() {
 		$data['status'] = $this->M_toga->get_tbl_toga();
-        $this->load->view('tpl/v_head');
+        // $this->load->view('tpl/v_head');
         // $this->load->view('tpl/v_menu');
         $this->load->view('toga/v_toga',$data);
 	}
