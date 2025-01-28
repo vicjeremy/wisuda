@@ -31,13 +31,15 @@ class Toga extends CI_Controller {
         // $this->load->view('tpl/v_head');
         // $this->load->view('tpl/v_menu');
         $this->load->view('toga/v_toga',$data);
+		$this->load->view('tpl/script');
 	}
 
 	public function edit_toga($nim) {
 		$data['status'] = $this->M_toga->get_toga_by_nim($nim);
 		$this->load->view('tpl/v_head');
-		$this->load->view('tpl/v_menu');
+		// $this->load->view('tpl/v_menu');
 		$this->load->view('toga/edit_toga', $data);
+		$this->load->view('tpl/script');
 	}
 	
 

@@ -33,12 +33,15 @@ class Akd extends CI_Controller
         $this->load->view('tpl/v_head');
         $this->load->view('tpl/v_menu');
         $this->load->view('akd/v_akd');
+        $this->load->view('tpl/script');
     }
     public function add_mhs()
     {
         $this->load->view('tpl/v_head');
         $this->load->view('tpl/v_menu');
         $this->load->view('akd/add_mhs');
+        $this->load->view('tpl/script');
+
     }
 
     public function save_mhs()
@@ -220,6 +223,8 @@ class Akd extends CI_Controller
         $this->load->view('tpl/v_head');
         $this->load->view('tpl/v_menu');
         $this->load->view('akd/v_data', $data);
+        $this->load->view('tpl/script');
+
     }
 
 
