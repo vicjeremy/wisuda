@@ -1,12 +1,12 @@
 <!-- Content Wrapper. Contains page content -->
-<div class="page-content">
+<main class="page-content">
   <section class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
           <h1>Form Edit Toga</h1>
         </div>
-        <div class="col-sm-6">
+        <div class="col-sm-auto">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="<?= site_url('home/') ?>">Home</a></li>
             <li class="breadcrumb-item active">Form Edit Toga</li>
@@ -17,11 +17,11 @@
   </section>
 
   <!-- Main content -->
-  <section class="content">
-    <div class="container-fluid">
-      <div class="row justify-content-center">
+  <section class="row">
+    <div class="col-12 col-lg-9">
+      <div class="row">
         <!-- left column -->
-        <div class="col-md-8">
+        <div class="col-12">
           <!-- general form elements -->
           <div class="card card-primary">
             <div class="card-header">
@@ -36,7 +36,7 @@
                 </div>
                 <div class="form-group">
                   <label for="nim">NIM</label>
-                  <input type="text" class="form-control" id="nim" name="nim" value="<?php echo $status['nim']; ?>">
+                  <input type="text" class="form-control" id="nim" name="nim" value="<?php echo $status['nim']; ?>" readonly>
                 </div>
                 <div class="form-group">
                   <label for="baju">Jubah</label>
@@ -115,7 +115,7 @@
       </div>
     </div>
   </section>
-</div>
+</main>
 
 
 <!-- /.control-sidebar -->
