@@ -1,54 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Forgot Password Page</title>
+  <title>Lupa Kata Sandi - Mazer Admin Dashboard</title>
 
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/adminlte/plugins/fontawesome-free/css/all.min.css'); ?>">
-  <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css'); ?>">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/adminlte/dist/css/adminlte.min.css'); ?>">
+  <link rel="shortcut icon" href="<?php echo base_url('assets/mazor/compiled/svg/favicon.svg'); ?>" type="image/x-icon">
+  <link rel="stylesheet" href="<?php echo base_url('assets/mazor/compiled/css/app.css'); ?>">
+  <link rel="stylesheet" href="<?php echo base_url('assets/mazor/compiled/css/app-dark.css'); ?>">
+  <link rel="stylesheet" href="<?php echo base_url('assets/mazor/compiled/css/auth.css'); ?>">
 </head>
-<body class="hold-transition register-page">
-<div class="register-box">
-  <div class="register-logo">
-    <a href="<?php echo base_url(); ?>auth/add_akn"><b>Sistem</b>Wisuda</a>
-  </div>
 
-  <div class="card">
-    <div class="card-body register-card-body">
-      <p class="login-box-msg">Masukkan email untuk reset password</p>
-
-      <!-- forgot_password_form.php -->
-
-      <form action="<?php echo site_url('forgot/reset_password_request'); ?>" method="post">
-          <div class="input-group mb-3">
-            <input type="email" placeholder="Masukkan Email" id="email" name="email" class="form-control" value="@gmail.com" required>
-            <div class="input-group-append">
-                <div class="input-group-text">
-                    <span class="fas fa-envelope"></span>
-                </div>
+<body>
+  <script src="<?php echo base_url('assets/mazor/static/js/initTheme.js'); ?>"></script>
+  <div id="auth">
+    <div class="row h-100">
+      <div class="col-lg-5 col-12">
+        <div id="auth-left">
+            <div class="auth-logo">
+            <h1>Sistem Wisuda</h1>
             </div>
-        </div>
-          <button type="submit" class="btn btn-primary btn-block">Reset Password</button>
-      </form>
-      <a href="<?php echo site_url('login'); ?>">I Remember My Password</a>
-    </div>
-    <!-- /.form-box -->
-  </div><!-- /.card -->
-</div>
-<!-- /.register-box -->
+          <h1 class="auth-title">Lupa Kata Sandi</h1>
+          <p class="auth-subtitle mb-5">Masukkan email Anda dan kami akan mengirimkan tautan untuk mengatur ulang kata sandi Anda.</p>
 
-<!-- jQuery -->
-<script src="<?php echo base_url('assets/adminlte/plugins/jquery/jquery.min.js'); ?>"></script>
-<!-- Bootstrap 4 -->
-<script src="<?php echo base_url('assets/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js'); ?>"></script>
-<!-- AdminLTE App -->
-<script src="<?php echo base_url('assets/adminlte/dist/js/adminlte.min.js'); ?>"></script>
+          <form action="<?php echo site_url('forgot/reset_password_request'); ?>" method="post">
+            <div class="form-group position-relative has-icon-left mb-4">
+              <input type="email" class="form-control form-control-xl" placeholder="Email" id="email" name="email" required>
+              <div class="form-control-icon">
+                <i class="bi bi-envelope"></i>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Kirim</button>
+          </form>
+          <div class="text-center mt-5 text-lg fs-4">
+            <p class='text-gray-600'>Ingat akun Anda? <a href="<?php echo site_url('login'); ?>" class="font-bold">Masuk</a>.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-7 d-none d-lg-block">
+        <div id="auth-right"></div>
+      </div>
+    </div>
+  </div>
 </body>
+
 </html>

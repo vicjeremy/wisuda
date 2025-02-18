@@ -3,51 +3,41 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Reset Password Page</title>
-
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/adminlte/plugins/fontawesome-free/css/all.min.css'); ?>">
-  <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css'); ?>">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/adminlte/dist/css/adminlte.min.css'); ?>">
+  <title>Reset Kata Sandi - Mazer Admin Dashboard</title>
+  
+  <link rel="shortcut icon" href="<?php echo base_url('assets/mazor/compiled/svg/favicon.svg'); ?>" type="image/x-icon">
+  <link rel="stylesheet" href="<?php echo base_url('assets/mazor/compiled/css/app.css'); ?>">
+  <link rel="stylesheet" href="<?php echo base_url('assets/mazor/compiled/css/app-dark.css'); ?>">
+  <link rel="stylesheet" href="<?php echo base_url('assets/mazor/compiled/css/auth.css'); ?>">
 </head>
-<body class="hold-transition register-page">
-<div class="register-box">
-  <div class="register-logo">
-    <a href="<?php echo base_url(); ?>Auth/add_akn"><b>Sistem</b>Wisuda</a>
-  </div>
-
-  <div class="card">
-    <div class="card-body register-card-body">
-      <p class="login-box-msg">Silahkan buat password baru</p>
-
-      <form action="<?php echo site_url('forgot_password/reset_password'); ?>" method="post">
-          <input type="hidden" name="token" value="<?php echo $token; ?>">
-          <label for="password">Password Baru:</label>
-          <div class="input-group mb-3">
-          <input type="password" placeholder="Masukkan Password" name="password" class="form-control" required>
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
+<body>
+  <script src="<?php echo base_url('assets/mazor/static/js/initTheme.js'); ?>"></script>
+  <div id="auth">
+    <div class="row h-100">
+      <div class="col-lg-5 col-12">
+        <div id="auth-left">
+          <div class="auth-logo">
+            <h1>Sistem Wisuda</h1>
           </div>
-        </div>
-          <button type="submit" class="btn btn-primary btn-block">Ubah Password</button>
-      </form>
-    </div>
-    <!-- /.form-box -->
-  </div><!-- /.card -->
-</div>
-<!-- /.register-box -->
+          <h1 class="auth-title">Reset Kata Sandi</h1>
+          <p class="auth-subtitle mb-5">Silahkan buat kata sandi baru Anda.</p>
 
-<!-- jQuery -->
-<script src="<?php echo base_url('assets/adminlte/plugins/jquery/jquery.min.js'); ?>"></script>
-<!-- Bootstrap 4 -->
-<script src="<?php echo base_url('assets/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js'); ?>"></script>
-<!-- AdminLTE App -->
-<script src="<?php echo base_url('assets/adminlte/dist/js/adminlte.min.js'); ?>"></script>
+          <form action="<?php echo site_url('forgot_password/reset_password'); ?>" method="post">
+            <input type="hidden" name="token" value="<?php echo $token; ?>">
+            <div class="form-group position-relative has-icon-left mb-4">
+              <input type="password" class="form-control form-control-xl" placeholder="Kata Sandi Baru" id="password" name="password" required>
+              <div class="form-control-icon">
+                <i class="bi bi-lock"></i>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Ubah Kata Sandi</button>
+          </form>
+        </div>
+      </div>
+      <div class="col-lg-7 d-none d-lg-block">
+        <div id="auth-right"></div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
