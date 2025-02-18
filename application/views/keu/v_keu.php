@@ -7,12 +7,6 @@
         <div class="col-sm-6">
           <h1>Data Keuangan Mahasiswa</h1>
         </div>
-        <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="<?= site_url('crud/') ?>">Home</a></li>
-            <li class="breadcrumb-item active">Data Keuangan Mahasiswa</li>
-          </ol>
-        </div>
       </div>
     </div><!-- /.container-fluid -->
   </section>

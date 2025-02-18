@@ -26,14 +26,12 @@ class Keu extends CI_Controller {
 	public function index() {
 		$data['status'] = $this->M_keu->get_tbl_mhs();
         $this->load->view('tpl/v_head');
-        $this->load->view('tpl/v_menu');
         $this->load->view('keu/v_keu',$data);
 		$this->load->view('tpl/script');
 	}
     public function edit_uang($nim) {
 		$data['status'] = $this->M_keu->get_mhs_by_nim($nim);
 		$this->load->view('tpl/v_head');
-		$this->load->view('tpl/v_menu');
 		$this->load->view('keu/edit_keu', $data);
 		$this->load->view('tpl/script');
 

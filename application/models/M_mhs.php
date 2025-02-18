@@ -50,4 +50,9 @@ class M_mhs extends CI_Model {
 		$sql = "DELETE FROM tbl_mhs WHERE nim = ?";
 		return $this->db->query($sql, $params);
 }
+
+    public function get_data() {
+        $query = $this->db->get('tbl_mhs'); // Replace 'tbl_mhs' with the actual table name
+        return $query->result_array();
+    }
 }

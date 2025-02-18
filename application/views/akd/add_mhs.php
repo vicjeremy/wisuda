@@ -1,31 +1,14 @@
-<!-- Main Content -->
-<main class="page-content">
-  <div class="content-header">
-    <div class="container-fluid">
-      <div class="page-title">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Input Data Mahasiswa</h1>
-          </div>
-          <div class="col-12 col-md-6 order-md-2 order-first">
-            <ol class="breadcrumb float-sm-end">
-              <li class="breadcrumb-item"><a href="<?= site_url('home/') ?>">Home</a></li>
-              <li class="breadcrumb-item active">Input Data Mahasiswa</li>
-            </ol>
-          </div>
-        </div>
+<!-- Modal for Input Data Mahasiswa -->
+<div class="modal fade" id="inputModal" tabindex="-1" role="dialog" aria-labelledby="inputModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="inputModalLabel">Input Data Mahasiswa</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-    </div>
-  </div>
-
-  <section class="section">
-    <div class="col-md-12">
-      <!-- general form elements -->
-      <div class="card card-primary">
-        <div class="card-header">
-          <h3 class="card-title">Input Data Mahasiswa</h3>
-        </div>
-        <!-- /.card-header -->
+      <div class="modal-body">
         <!-- form start -->
         <form method="post" action="<?= base_url(); ?>akd/save_mhs" enctype="multipart/form-data">
           <div class="card-body">
@@ -64,13 +47,17 @@
           </div>
         </form>
       </div>
-      <!-- /.card -->
     </div>
-  </section>
-</main>
-
-<div class="footer clearfix mb-0 text-muted">
-  <div class="float-start">
-    <p>&copy; 2025 Sistem Wisuda. Semua hak cipta dilindungi.</p>
   </div>
 </div>
+
+
+<script>
+  $(document).ready(function() {
+    // Show input modal when "Input Data Mahasiswa" button is clicked
+    $('.btn-success').on('click', function(e) {
+      e.preventDefault();
+      $('#inputModal').modal('show');
+    });
+  });
+</script>

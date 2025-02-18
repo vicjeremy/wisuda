@@ -31,6 +31,7 @@
 <script src="<?= base_url('assets/mazor/extensions/datatables.net/js/jquery.dataTables.min.js'); ?>"></script>
 <script src="<?= base_url('assets/mazor/extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js'); ?>"></script>
 <script src="<?= base_url('assets/mazor/static/js/pages/datatables.js'); ?>"></script>
+<script src="<?= base_url('assets/mazor/static/js/pages/horizontal-layout.js'); ?>"></script>
 
 <!-- FilePond Scripts -->
 <script src="<?= base_url('assets/mazor/extensions/filepond-plugin-file-validate-size/filepond-plugin-file-validate-size.min.js'); ?>"></script>
@@ -41,7 +42,7 @@
 
 <!-- Page specific script -->
 <script>
-    $(function () {
+    $(function() {
         $('#example2').DataTable({
             "paging": true,
             "lengthChange": false,
@@ -53,16 +54,18 @@
         });
 
         // Auto-hide alerts setelah 3 detik
-        setTimeout(function () {
+        setTimeout(function() {
             $(".alert-dismissible").alert('close');
         }, 3000);
     });
 </script>
 
 <script>
-    $(function () {
+    $(function() {
         $("#example1").DataTable({
-            "responsive": true, "lengthChange": false, "autoWidth": false,
+            "responsive": true,
+            "lengthChange": false,
+            "autoWidth": false,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         $('#example2').DataTable({
@@ -77,7 +80,7 @@
     });
 </script>
 <script>
-    $('#editModal').on('show.bs.modal', function (event) {
+    $('#editModal').on('show.bs.modal', function(event) {
         var button = $(event.relatedTarget); // Button that triggered the modal
         var nim = button.data('nim'); // Extract info from data-* attributes
         var nama = button.data('nama');
@@ -96,12 +99,13 @@
     });
 </script>
 <script>
-    $(function () {
+    $(function() {
         if (!$.fn.DataTable.isDataTable("#example1")) {
             $("#example1").DataTable({
-                "responsive": true, "lengthChange": false, "autoWidth": false,
-                "buttons": [
-                    {
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": [{
                         extend: 'copy',
                         title: 'Data Mahasiswa Akademik'
                     },
@@ -119,7 +123,7 @@
                     },
                     {
                         extend: 'print',
-                        title: function () {
+                        title: function() {
                             var printTitle = 'Data Mahasiswa Akademik';
                             return printTitle;
                         }
@@ -140,8 +144,7 @@
                 "info": true,
                 "autoWidth": false,
                 "responsive": true,
-                "buttons": [
-                    {
+                "buttons": [{
                         extend: 'copy',
                         title: 'Data Keuangan Mahasiswa'
                     },
@@ -159,7 +162,7 @@
                     },
                     {
                         extend: 'print',
-                        title: function () {
+                        title: function() {
                             var printTitle = 'Data Keuangan Mahasiswa';
                             return printTitle;
                         }
@@ -173,7 +176,22 @@
     });
 </script>
 <script>
-    $(function () {
+    $(function() {
         bsCustomFileInput.init();
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        // Show input modal when "Input Data Mahasiswa" button is clicked
+        $('.btn-success').on('click', function(e) {
+            e.preventDefault();
+            $('#inputModal').modal('show');
+        });
+
+        // Ensure modal backdrop is removed when modal is closed
+        $('#inputModal').on('hidden.bs.modal', function() {
+            $('body').removeClass('modal-open');
+            $('.modal-backdrop').remove();
+        });
     });
 </script>

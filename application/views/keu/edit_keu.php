@@ -9,7 +9,7 @@
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="<?= site_url('crud/') ?>">Home</a></li>
+            <li class="breadcrumb-item"><a href="<?= site_url('keu/') ?>">Home</a></li>
             <li class="breadcrumb-item active">Form Edit Status</li>
           </ol>
         </div>
