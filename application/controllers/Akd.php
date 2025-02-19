@@ -110,6 +110,46 @@ class Akd extends CI_Controller
         }
     }
 
+    private function convert_date($date)
+    {
+        if (empty($date))
+            return null; // Jika tanggal kosong, kembalikan null
+
+        $month_map = [
+            'Januari' => '01',
+            'Februari' => '02',
+            'Maret' => '03',
+            'April' => '04',
+            'Mei' => '05',
+            'Juni' => '06',
+            'Juli' => '07',
+            'Agustus' => '08',
+            'September' => '09',
+            'Oktober' => '10',
+            'November' => '11',
+            'Desember' => '12'
+        ];
+
+        $parts = explode(' ', trim($date)); // Pisahkan tanggal menjadi bagian-bagian
+
+        // Validasi jika format tidak sesuai (pastikan ada 3 bagian)
+        if (count($parts) !== 3) {
+            return null; // Format salah, kembalikan null
+        }
+
+        $day = str_pad($parts[0], 2, '0', STR_PAD_LEFT); // Pastikan 2 digit
+        $month = $month_map[$parts[1]] ?? null; // Cek apakah nama bulan valid
+        $year = substr($parts[2], -2); // Ambil 2 digit terakhir dari tahun
+
+        // Jika bulan tidak valid, kembalikan null
+        if (!$month) {
+            return null;
+        }
+
+        return $day . $month . $year;
+    }
+
+
     public function lihat_data()
     {
         $data['title'] = 'Daftar Mahasiswa';
