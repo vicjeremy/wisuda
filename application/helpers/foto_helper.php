@@ -1,13 +1,13 @@
 <?php
 function foto($status)
 {
-    $foto = [
-        'unknown' => 'Belum Upload Foto',
-        0 => 'Sedang Diperiksa',
-        1 => 'Disetujui',
-        2 => 'Ditolak, Silahkan Upload Ulang Foto Almet',
-        3 => 'Ditolak, Silahkan Upload Ulang Foto Keluarga',
-        4 => 'Ditolak, Silahkan Upload Ulang Foto Almet dan Keluarga',
-    ];
-    return $foto[$status] ?? 'Unknown';
+	$foto = [
+		0 => 'Belum Upload Foto',
+		1 => 'Sedang Diperiksa',
+		2 => 'Disetujui',
+		3 => 'Ditolak, Silahkan Upload Ulang Foto Almet',
+		4 => 'Ditolak, Silahkan Upload Ulang Foto Keluarga',
+		5 => 'Ditolak, Silahkan Upload Ulang Foto Almet dan Keluarga',
+	];
+	return $foto[$status] ?? 'Unknown';
 }
