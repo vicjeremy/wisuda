@@ -1,79 +1,82 @@
-<table class="table table-striped dataTable-table" id="table1">
-    <thead>
-        <tr>
-            <th>NIM</th>
-            <th>Nama</th>
-            <th>Tempat Lahir</th>
-            <th>Tanggal Lahir</th>
-            <th>Fakultas</th>
-            <th>Prodi</th>
-            <th>IPK</th>
-            <th>Skripsi</th>
-            <th>Alamat</th>
-            <th>Email</th>
-            <th>No Hp</th>
-            <th>Ukuran Toga</th>
-            <th>Status Toga</th>
-            <th>Foto Almet</th>
-            <th>Foto Keluarga</th>
-            <th>Tamu</th>
-            <th>Status Keuangan</th>
-            <th>Status Pembayaran Toga</th>
-            <th>Status Foto</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?php if (!empty($result)): ?>
-            <?php foreach ($result as $value): ?>
-                <tr>
-                    <td><?php echo $value['nim']; ?></td>
-                    <td><?php echo $value['nama']; ?></td>
-                    <td><?php echo $value['lok_lahir']; ?></td>
-                    <td><?php echo $value['tgl_lahir']; ?></td>
-                    <td><?php echo $value['fakultas']; ?></td>
-                    <td><?php echo $value['prodi']; ?></td>
-                    <td><?php echo $value['ipk']; ?></td>
-                    <td><?php echo $value['skripsi']; ?></td>
-                    <td><?php echo $value['alamat']; ?></td>
-                    <td><?php echo $value['email']; ?></td>
-                    <td><?php echo $value['hp']; ?></td>
-                    <td><?php echo $value['size']; ?></td>
-                    <td><?php echo $value['ambil_toga'] == 1 ? 'Sudah Ambil' : 'Belum Ambil'; ?></td>
-                    <td><?php echo $value['foto_almet']; ?></td>
-                    <td><?php echo $value['foto_keluarga']; ?></td>
-                    <td><?php echo $value['tamu']; ?></td>
-                    <td><?php echo isset($value['sts_keu']) ? ($value['sts_keu'] == 1 ? 'Sudah Lunas' : 'Belum Lunas') : 'Data tidak tersedia'; ?></td>
-                    <td><?php echo isset($value['sts_toga']) ? ($value['sts_toga'] == 1 ? 'Sudah Lunas' : 'Belum Lunas') : 'Data tidak tersedia'; ?></td>
-                    <td>
-                        <?php
-                        switch ($value['sts_foto']) {
-                            case 0:
-                                echo 'Sedang di proses';
-                                break;
-                            case 1:
-                                echo 'Disetujui';
-                                break;
-                            case 2:
-                                echo 'Ditolak Harap Upload Ulang Foto dengan Almet';
-                                break;
-                            case 3:
-                                echo 'Ditolak Harap Upload Ulang Dengan Foto Keluarga';
-                                break;
-                            case 4:
-                                echo 'Ditolak Harap Upload Ulang Semua Foto';
-                                break;
-                            default:
-                                echo 'Status tidak diketahui';
-                                break;
-                        }
-                        ?>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <tr>
-                <td colspan="19" class="text-center">No data available in table</td>
-            </tr>
-        <?php endif; ?>
-    </tbody>
-</table>
+<div class="table-responsive">
+    <div id="table1_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+        <div class="row dt-row">
+            <div class="col-sm-12">
+                <table class="table" id="table2" aria-describedby="table1_info">
+                    <thead>
+                        <tr>
+                            <th class="sorting" style="width: 10%">IPK</th>
+                            <th class="sorting" style="width: 20%">Skripsi</th>
+                            <th class="sorting" style="width: 15%">Status Toga</th>
+                            <th class="sorting" style="width: 15%">Status Keuangan</th>
+                            <th class="sorting" style="width: 15%">Status Pembayaran Toga</th>
+                            <th class="sorting" style="width: 25%">Status Foto</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (!empty($mahasiswa)): ?>
+                            <tr>
+                                <td class="align-middle"><?php echo $mahasiswa['ipk']; ?></td>
+                                <td class="align-middle"><?php echo $mahasiswa['skripsi']; ?></td>
+                                <td class="align-middle">
+                                    <span class="badge <?php echo $mahasiswa['ambil_toga'] == 1 ? 'bg-success' : 'bg-warning'; ?>">
+                                        <?php echo $mahasiswa['ambil_toga'] == 1 ? 'Sudah Ambil' : 'Belum Ambil'; ?>
+                                    </span>
+                                </td>
+                                <td class="align-middle">
+                                    <span class="badge <?php echo isset($mahasiswa['sts_wsd']) && $mahasiswa['sts_wsd'] == 1 ? 'bg-success' : 'bg-warning'; ?>">
+                                        <?php echo isset($mahasiswa['sts_wsd']) ? ($mahasiswa['sts_wsd'] == 1 ? 'Sudah Lunas' : 'Belum Lunas') : 'Data tidak tersedia'; ?>
+                                    </span>
+                                </td>
+                                <td class="align-middle">
+                                    <span class="badge <?php echo isset($mahasiswa['sts_toga']) && $mahasiswa['sts_toga'] == 1 ? 'bg-success' : 'bg-warning'; ?>">
+                                        <?php echo isset($mahasiswa['sts_toga']) ? ($mahasiswa['sts_toga'] == 1 ? 'Sudah Lunas' : 'Belum Lunas') : 'Data tidak tersedia'; ?>
+                                    </span>
+                                </td>
+                                <td class="align-middle">
+                                    <?php
+                                    $statusClass = '';
+                                    $statusText = '';
+                                    switch ($mahasiswa['sts_foto']) {
+                                        case 0:
+                                            $statusClass = 'bg-info';
+                                            $statusText = 'Sedang di proses';
+                                            break;
+                                        case 1:
+                                            $statusClass = 'bg-success';
+                                            $statusText = 'Disetujui';
+                                            break;
+                                        case 2:
+                                            $statusClass = 'bg-danger';
+                                            $statusText = 'Ditolak Harap Upload Ulang Foto dengan Almet';
+                                            break;
+                                        case 3:
+                                            $statusClass = 'bg-danger';
+                                            $statusText = 'Ditolak Harap Upload Ulang Dengan Foto Keluarga';
+                                            break;
+                                        case 4:
+                                            $statusClass = 'bg-danger';
+                                            $statusText = 'Ditolak Harap Upload Ulang Semua Foto';
+                                            break;
+                                        default:
+                                            $statusClass = 'bg-secondary';
+                                            $statusText = 'Status tidak diketahui';
+                                            break;
+                                    }
+                                    ?>
+                                    <span class="badge <?php echo $statusClass; ?>">
+                                        <?php echo $statusText; ?>
+                                    </span>
+                                </td>
+                            </tr>
+                        <?php else: ?>
+                            <tr>
+                                <td colspan="6" class="text-center">No data available in table</td>
+                            </tr>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

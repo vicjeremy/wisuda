@@ -24,41 +24,25 @@ class M_mhs extends CI_Model {
 	}
 	
 	public function update_mahasiswa($data)
-	{
-		if (empty($data['nim'])) {
-			return false;
-		}
+{
+    // Update data di tbl_mhs
+    $this->db->where('nim', $data['nim']);
+    $this->db->update('tbl_mhs', $data);
 
-		// Filter only the fields that exist in tbl_mhs
-		$allowed_fields = array(
-			'nim', 'nama', 'lok_lahir', 'tgl_lahir', 'alamat', 
-			'email', 'hp', 'size', 'foto_almet', 'foto_keluarga', 
-			'tamu', 'fakultas', 'prodi', 'ipk', 'skripsi'
-		);
-		
-		$mhs_data = array_intersect_key($data, array_flip($allowed_fields));
+    // Perbarui kolom email di tbl_akun berdasarkan nim
+    $akun_data = [
+        'email' => $data['email']
+    ];
+    $this->db->where('user', $data['nim']); // 'user' adalah kolom nim di tbl_akun
+    $this->db->update('tbl_akun', $akun_data);
 
-		// Update data di tbl_mhs
+	// Jika foto_almet atau foto_keluarga diupdate, ubah sts_foto menjadi 0 kecuali jika sts_foto sudah 1
+	if (isset($data['foto_almet']) || isset($data['foto_keluarga'])) {
 		$this->db->where('nim', $data['nim']);
-		$this->db->update('tbl_mhs', $mhs_data);
-
-		// Perbarui kolom email di tbl_akun berdasarkan nim
-		if (isset($data['email'])) {
-			$akun_data = array(
-				'email' => $data['email']
-			);
-			$this->db->where('user', $data['nim']); 
-			$this->db->update('tbl_akun', $akun_data);
-		}
-
-		// Update sts_foto if photos are updated
-		if (!empty($data['foto_almet']) || !empty($data['foto_keluarga'])) {
-			$this->db->where('nim', $data['nim']);
-			$this->db->update('tbl_mhs', array('sts_foto' => 0));
-		}
-
-		return true;
+		$this->db->where('sts_foto !=', 1);
+		$this->db->update('tbl_mhs', ['sts_foto' => 0]);
 	}
+}
 
 	
 	function hapus($params){
@@ -70,5 +54,7 @@ class M_mhs extends CI_Model {
     public function get_data() {
         $query = $this->db->get('tbl_mhs'); // Replace 'tbl_mhs' with the actual table name
         return $query->result_array();
+    }
+}
     }
 }

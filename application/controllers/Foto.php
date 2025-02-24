@@ -31,6 +31,7 @@ class Foto extends CI_Controller {
         $this->load->view('tpl/v_head');
         // $this->load->view('tpl/v_menu');
         $this->load->view('foto/v_foto',$data);
+		$this->load->view('tpl/script');
 	}
 
 	public function update_foto() {

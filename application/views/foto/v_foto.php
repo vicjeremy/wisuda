@@ -15,56 +15,8 @@
 				<div class="col-12 ">
 					<div class="card">
 						<div class="card-body">
-							<table id="example2" class="table table-striped table-bordered">
-								<thead>
-									<tr>
-										<th>Nim</th>
-										<th>Nama</th>
-										<th>Link Gdrive Foto Almet</th>
-										<th>Link Gdrive Foto Keluarga</th>
-										<th>Status</th>
-										<th>Action</th>
-									</tr>
-								</thead>
-								<tbody>
-									<?php foreach ($status as $sts): ?>
-										<tr>
-											<td><?php echo $sts['nim']; ?></td>
-											<td><?php echo $sts['nama']; ?></td>
-											<td>
-												<a href="<?= strpos($sts['foto_almet'], 'http') === 0 ? $sts['foto_almet'] : 'https://' . $sts['foto_almet'] ?>"
-													target="_blank">
-													<?= $sts['foto_almet'] ?>
-												</a>
-											</td>
-											<td>
-												<a href="<?= strpos($sts['foto_keluarga'], 'http') === 0 ? $sts['foto_keluarga'] : 'https://' . $sts['foto_keluarga'] ?>"
-													target="_blank">
-													<?= $sts['foto_keluarga'] ?>
-												</a>
-											</td>
-											<td><?= ucfirst(foto($sts['sts_foto'])) ?></td>
-											<td>
-												<button type="button" class="btn btn-primary btn-sm editStatus" data-toggle="modal"
-													data-target="#editStatusModal" data-nim="<?php echo $sts['nim']; ?>"
-													data-status="<?php echo $sts['sts_foto']; ?>">
-													Edit Status
-												</button>
-											</td>
-										</tr>
-									<?php endforeach; ?>
-								</tbody>
-								<tfoot>
-									<tr>
-										<th>Nim</th>
-										<th>Nama</th>
-										<th>Link Gdrive Foto Almet</th>
-										<th>Link Gdrive Foto Keluarga</th>
-										<th>Status</th>
-										<th>Action</th>
-									</tr>
-								</tfoot>
-							</table>
+							<!-- Table Foto -->
+							<?php $this->load->view('foto/table_foto'); ?>
 						</div>
 
 						<div class="modal fade" id="editStatusModal" tabindex="-1" role="dialog">
@@ -78,25 +30,16 @@
 									</div>
 									<form action="<?php echo base_url('Foto/update_foto'); ?>" method="POST">
 										<div class="modal-body">
-											<input type="hidden" name="nim" id="nim" value="<?php echo $sts['nim']; ?>">
+											<input type="hidden" name="nim" id="nim">
 											<div class="form-group">
 												<label>Status</label>
 												<select class="form-control" name="status" id="status">
-													<option value="0" <?php if ($sts['sts_foto'] == 0)
-																							echo 'selected'; ?>>Belum Upload Foto</option>
-													<option value="1" <?php if ($sts['sts_foto'] == 1)
-																							echo 'selected'; ?>>Sedang Diperiksa</option>
-													<option value="2" <?php if ($sts['sts_foto'] == 2)
-																							echo 'selected'; ?>>Disetujui</option>
-													<option value="3" <?php if ($sts['sts_foto'] == 3)
-																							echo 'selected'; ?>>Ditolak, Silahkan
-														Upload Ulang Foto Almet</option>
-													<option value="4" <?php if ($sts['sts_foto'] == 4)
-																							echo 'selected'; ?>>Ditolak, Silahkan
-														Upload Ulang Foto Keluarga</option>
-													<option value="5" <?php if ($sts['sts_foto'] == 5)
-																							echo 'selected'; ?>>Ditolak, Silahkan
-														Upload Ulang Foto Almet dan Keluarga</option>
+													<option value="0">Belum Upload Foto</option>
+													<option value="1">Sedang Diperiksa</option>
+													<option value="2">Disetujui</option>
+													<option value="3">Ditolak, Silahkan Upload Ulang Foto Almet</option>
+													<option value="4">Ditolak, Silahkan Upload Ulang Foto Keluarga</option>
+													<option value="5">Ditolak, Silahkan Upload Ulang Foto Almet dan Keluarga</option>
 												</select>
 											</div>
 										</div>
@@ -124,6 +67,15 @@
 		<p>&copy; 2025 Sistem Wisuda. Semua hak cipta dilindungi.</p>
 	</div>
 </div>
+
+<!-- Mazor -->
+<script src="assets/mazor/static/js/components/dark.js"></script>
+<script src="assets/mazor/extensions/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+<script src="assets/mazor/compiled/js/app.js"></script>
+<script src="assets/mazor/extensions/jquery/jquery.min.js"></script>
+<script src="assets/mazor/extensions/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="assets/mazor/extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
+<script src="assets/mazor/static/js/pages/datatables.js"></script>
 
 <!-- jQuery -->
 <script src="<?php echo base_url('assets/adminlte/plugins/jquery/jquery.min.js'); ?>"></script>
@@ -165,8 +117,10 @@
 			"searching": true,
 			"ordering": true,
 			"info": true,
-			"autoWidth": true,
-			"responsive": true,
+			"autoWidth": false,
+			"scrollX": true,
+			"scrollY": "400px",
+			"scrollCollapse": true,
 		});
 	});
 </script>
@@ -176,8 +130,8 @@
 			var nim = $(this).data('nim');
 			var status = $(this).data('status');
 
-			$('#nim').val(nim);
-			$('#status').val(status);
+			$('#editStatusModal #nim').val(nim);
+			$('#editStatusModal #status').val(status);
 		});
 	});
 </script>

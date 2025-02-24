@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Data Mahasiswa</title>
+  <title>Profile Mahasiswa</title>
   <!-- Stylesheets -->
   <link rel="stylesheet" href="<?= base_url('assets/mazor/compiled/css/app.css'); ?>">
   <link rel="stylesheet" href="<?= base_url('assets/mazor/compiled/css/app-dark.css'); ?>">
@@ -58,21 +58,26 @@
           <section class="content-header">
             <div class="container-fluid">
               <div class="row mb-2">
-                <div class="col-sm-6">
-                  <h1>Data Mahasiswa</h1>
+                <div class="col-12 col-md-6 order-md-1 order-last">
+                  <h3>Profile Mahasiswa</h3>
                 </div>
               </div>
             </div>
           </section>
 
+          <!-- Profile -->
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <?php $this->load->view('mhs/profile_mhs') ?>
+              </div>
+            </div>
+          </div>
+
+          <!-- Table -->
           <section class="row">
             <div class="col-12">
               <div class="card">
-                <div class="card-header">
-                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#inputModal">
-                    Edit Data
-                  </button>
-                </div>
                 <div class="card-body">
                   <!-- Alert -->
                   <?php if ($this->session->flashdata('update_success')): ?>
@@ -83,18 +88,10 @@
                       </button>
                     </div>
                   <?php endif; ?>
-                  <!-- ./Alert -->
-
-                  <!-- Table -->
-                  <div class="table-responsive">
-                    <?php $this->load->view('mhs/table_mhs'); ?>
-                  </div>
-                  <!-- /.table -->
+                  <?php $this->load->view('mhs/table_mhs') ?>
                 </div>
               </div>
-              <!-- /.card-body -->
             </div>
-            <!-- /.card -->
           </section>
 
           <!-- Modal -->
