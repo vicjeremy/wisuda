@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="<?= base_url('assets/mazor/compiled/css/app-dark.css'); ?>">
     <link rel="stylesheet" href="<?= base_url('assets/mazor/extensions/@fortawesome/fontawesome-free/css/all.min.css'); ?>">
     <!-- DataTables CSS -->
-    <link rel="stylesheet" href="<?= base_url('assets/mazor/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css'); ?>" >
+    <link rel="stylesheet" href="<?= base_url('assets/mazor/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css'); ?>">
     <link rel="stylesheet" crossorigin="" href="<?= base_url('assets/mazor/compiled/css/table-datatable-jquery.css'); ?>">
     <link rel="stylesheet" href="<?= base_url('assets/adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css'); ?>">
     <link rel="stylesheet" href="<?= base_url('assets/adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css'); ?>">
@@ -101,12 +101,10 @@
 
     <script>
         $(document).ready(function() {
-            // Destroy existing DataTable if it exists
             if ($.fn.DataTable.isDataTable('#example1')) {
                 $('#example1').DataTable().destroy();
             }
 
-            // Initialize DataTable
             var table = $('#example1').DataTable({
                 "responsive": true,
                 "lengthChange": true,
@@ -138,12 +136,10 @@
                 ]
             });
 
-            // Print Button for Specific Row
             $(document).on('click', '.printButton', function() {
                 var now = new Date();
                 var dateTime = now.toLocaleString();
 
-                // Get the row data
                 const row = $(this).closest('tr');
                 const nim = row.find('td:eq(0)').text().trim();
                 const jubah = row.find('td:eq(1)').text().trim();
@@ -153,36 +149,101 @@
                 const logo = row.find('td:eq(5)').text().trim();
                 const selendang = row.find('td:eq(6)').text().trim();
 
-                // Prepare content to print
-                const printHeader = `
-                <div style="text-align: center; margin-bottom: 20px;">
-                    <h2>Data Pengambilan Toga Mahasiswa</h2>
-                    <p>Dicetak pada: ${dateTime}</p>
-                </div>`;
-
                 const printContent = `
-                <table style="border-collapse: collapse; width: 100%; margin-top: 20px;">
-                    <tr><th style="border: 1px solid black; padding: 8px; width: 30%;">Nim</th><td style="border: 1px solid black; padding: 8px;">${nim}</td></tr>
-                    <tr><th style="border: 1px solid black; padding: 8px;">Jubah</th><td style="border: 1px solid black; padding: 8px;">${jubah}</td></tr>
-                    <tr><th style="border: 1px solid black; padding: 8px;">Topi</th><td style="border: 1px solid black; padding: 8px;">${topi}</td></tr>
-                    <tr><th style="border: 1px solid black; padding: 8px;">Skecel</th><td style="border: 1px solid black; padding: 8px;">${skecel}</td></tr>
-                    <tr><th style="border: 1px solid black; padding: 8px;">Samir</th><td style="border: 1px solid black; padding: 8px;">${samir}</td></tr>
-                    <tr><th style="border: 1px solid black; padding: 8px;">Logo</th><td style="border: 1px solid black; padding: 8px;">${logo}</td></tr>
-                    <tr><th style="border: 1px solid black; padding: 8px;">Selendang</th><td style="border: 1px solid black; padding: 8px;">${selendang}</td></tr>
-                </table>`;
+            <html>
+            <head>
+                <title>Kwitansi Pengambilan Toga</title>
+                <style>
+                    @page {
+                        size: landscape;
+                    }
+                    body { 
+                        font-family: Arial, sans-serif; 
+                        margin: 40px;
+                    }
+                    .header { text-align: center; margin-bottom: 20px; }
+                    .header h2 { margin: 5px 0; }
+                    .info-container {
+                        display: flex;
+                        justify-content: space-between;
+                        gap: 20px;
+                        margin-bottom: 20px;
+                    }
+                    .info-column {
+                        flex: 1;
+                    }
+                    .info-table { 
+                        width: 100%; 
+                        border-collapse: collapse; 
+                        margin-bottom: 20px; 
+                    }
+                    .info-table.no-border th, 
+                    .info-table.no-border td { 
+                        border: none;
+                        padding: 8px; 
+                        text-align: left; 
+                    }
+                    .info-table th, .info-table td { 
+                        border: 1px solid black; 
+                        padding: 8px; 
+                        text-align: left; 
+                    }
+                    .info-table th { background-color: #f2f2f2; }
+                    .total { font-weight: bold; }
+                </style>
+            </head>
+            <body>
+                <div class="header">
+                    <h2>KWITANSI PEMBAYARAN</h2>
+                    <p>Dicetak pada: ${dateTime}</p>
+                </div>
 
-                // Create new window and print content
+                <div class="info-container">
+                    <div class="info-column">
+                        <table class="info-table no-border">
+                            <tr><th>Kode Pembayaran</th><td>XXXXX</td></tr>
+                            <tr><th>Periode Pembayaran</th><td>2024</td></tr>
+                            <tr><th>Tanggal Pembayaran</th><td>${dateTime}</td></tr>
+                            <tr><th>NIM</th><td>${nim}</td></tr>
+                        </table>
+                    </div>
+                    <div class="info-column">
+                        <table class="info-table no-border">
+                            <tr><th>Nama</th><td>John Doe</td></tr>
+                            <tr><th>Program Studi</th><td>Teknik Informatika</td></tr>
+                            <tr><th>Nominal</th><td>Rp 500.000</td></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <h3>Detail Pengambilan Toga</h3>
+                <table class="info-table">
+                    <tr>
+                        <th>Item</th>
+                        <th>Status</th>
+                    </tr>
+                    <tr><td>Jubah</td><td>${jubah}</td></tr>
+                    <tr><td>Topi</td><td>${topi}</td></tr>
+                    <tr><td>Skecel</td><td>${skecel}</td></tr>
+                    <tr><td>Samir</td><td>${samir}</td></tr>
+                    <tr><td>Logo</td><td>${logo}</td></tr>
+                    <tr><td>Selendang</td><td>${selendang}</td></tr>
+                </table>
+
+                <p style="margin-top: 30px; text-align: right;">Tanda tangan,</p>
+                <p style="text-align: right; margin-top: 50px;">__________________</p>
+            </body>
+            </html>`;
+
                 const printWindow = window.open('', '', 'height=600,width=800');
-                printWindow.document.write('<html><head><title>Print Data Toga</title>');
-                printWindow.document.write('</head><body>');
-                printWindow.document.write(printHeader);
                 printWindow.document.write(printContent);
-                printWindow.document.write('</body></html>');
                 printWindow.document.close();
                 printWindow.print();
             });
         });
     </script>
+
+
 </body>
 
 </html>
