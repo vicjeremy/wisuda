@@ -1,4 +1,4 @@
-<div class="table-responsive" style="height: 300px; overflow-y: scroll;">
+<div class="table-responsive" style="max-height: 62vh; overflow-y: auto; overflow-x: auto; ">
     <table id="example1" class="table table-striped table-bordered">
         <thead>
             <tr>

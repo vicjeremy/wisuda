@@ -55,8 +55,8 @@
       </nav>
       <!-- ./Navbar -->
 
-      <div class="container">
-        <div class="page-content">
+      <!-- <div class="container"> -->
+        <div class="page-content" style="margin-left: 5vw; margin-right: 5vw;">
           <section class="content-header">
             <div class="container-fluid">
               <div class="row mb-2">
@@ -89,7 +89,7 @@
             </div>
           </section>
         </div>
-      </div>
+      <!-- </div> -->
 
       <!-- Modal -->
       <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
@@ -130,13 +130,13 @@
       </div>
 
       <footer>
-        <div class="container">
-          <div class="footer clearfix mb-0 text-muted">
+        <!-- <div class="container"> -->
+          <div class="footer clearfix mb-0 text-muted" style="margin-left: 5vw; margin-right: 5vw;">
             <div class="float-start">
               <p>&copy; 2025 Sistem Wisuda. Semua hak cipta dilindungi.</p>
             </div>
           </div>
-        </div>
+        <!-- </div> -->
       </footer>
     </div>
   </div>

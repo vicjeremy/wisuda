@@ -16,7 +16,8 @@ class Adm extends CI_Controller
 		// Jika waktu terakhir lebih dari 30 menit yang lalu, logout otomatis
 		if ($last_activity && ($current_time - $last_activity) > 1800) {
 			$this->session->unset_userdata('id');
-			$this->session->unset_userdata('level');
+			$params = array('user', 'level', 'last_activity'); // Menghapus last_activity juga
+        	$this->session->unset_userdata($params);
 			redirect('login');
 		}
 

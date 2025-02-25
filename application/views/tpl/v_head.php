@@ -49,7 +49,6 @@
     <!-- DataTables CSS -->
     <link rel="stylesheet" href="<?= base_url('assets/mazor/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css'); ?>" >
     <link rel="stylesheet" crossorigin="" href="<?= base_url('assets/mazor/compiled/css/table-datatable-jquery.css'); ?>">
-
 </head>
 <!--
 `body` tag options:
@@ -62,7 +61,7 @@
 -->
 
 <body>
-  <script src="<?= base_url('assets/static/js/initTheme.js'); ?>"></script>
+  <script src="<?= base_url('assets/mazor/static/js/initTheme.js'); ?>"></script>
   <div id="app">
     <div id="main" class="layout-horizontal">
       <nav class="navbar navbar-expand navbar-top">

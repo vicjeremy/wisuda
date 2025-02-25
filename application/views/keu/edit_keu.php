@@ -1,17 +1,11 @@
 <!-- Content Wrapper. Contains page content -->
-<div class="page-content " style="margin-left: 10px; padding-left: 10px;">
+<div class="page-content " style="margin-left: 5vw; margin-right: 5vw;">
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
           <h1>Form Edit Status</h1>
-        </div>
-        <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="<?= site_url('keu/') ?>">Home</a></li>
-            <li class="breadcrumb-item active">Form Edit Status</li>
-          </ol>
         </div>
       </div>
     </div><!-- /.container-fluid -->
@@ -25,9 +19,6 @@
         <div class="col-md-12">
           <!-- general form elements -->
           <div class="card card-primary">
-            <div class="card-header">
-              <h3 class="card-title">Form Edit</h3>
-            </div>
             <!-- /.card-header -->
             <!-- form start -->
             <form method="post" action="<?php echo base_url(); ?>keu/update_uang" enctype="multipart/form-data">
@@ -56,10 +47,21 @@
                     value="<?php echo $status['prodi']; ?>" readonly>
                 </div>
                 <div class="form-group">
-                  <label for="tamu">Tamu</label>
+                  <label for="tamu">Jumlah Tamu Tambahan</label>
                   <input type="number" class="form-control" id="tamu" name="tamu"
                     value="<?php echo $status['tamu']; ?>">
-                </div>
+									</div>
+										<div class="form-group" id="stsTamuDiv" style="display: none;">
+										<label for="sts_tamu">Pembayaran Tamu Tambahan</label>
+										<select class="form-control" id="sts_tamu" name="sts_tamu">
+											<option value="0" <?php if ($status['sts_tamu'] == 0)
+												echo 'selected'; ?>>Tidak ada tamu tambahan</option>
+											<option value="1" <?php if ($status['sts_tamu'] == 1)
+												echo 'selected'; ?>>Belum bayar</option>
+											<option value="2" <?php if ($status['sts_tamu'] == 2)
+												echo 'selected'; ?>>Lunas</option>
+										</select>
+									</div>
                 <div class="form-group">
                   <label for="wisuda">Pembayaran Wisuda</label>
                   <select class="form-control" id="wisuda" name="wisuda">
@@ -75,15 +77,6 @@
                     <option value="0" <?php if ($status['sts_toga'] == 0)
                       echo 'selected'; ?>>Belum Bayar</option>
                     <option value="1" <?php if ($status['sts_toga'] == 1)
-                      echo 'selected'; ?>>Lunas</option>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="sts_tamu">Pembayaran Tamu Tambahan</label>
-                  <select class="form-control" id="sts_tamu" name="sts_tamu">
-                    <option value="0" <?php if ($status['sts_tamu'] == 0)
-                      echo 'selected'; ?>>Belum Bayar</option>
-                    <option value="1" <?php if ($status['sts_tamu'] == 1)
                       echo 'selected'; ?>>Lunas</option>
                   </select>
                 </div>
@@ -128,14 +121,59 @@
   });
 </script>
 <script>
-  document.getElementById('tamu').addEventListener('input', function () {
-    if (this.value > 2) {
-      alert('Jumlah tamu yang dapat dimasukkan maksimal hanya 2');
-      this.value = 2;
-    } else if (this.value < 0) {
-      this.value = 0;
-    }
-  });
+	document.getElementById('tamu').addEventListener('input', function () {
+		var stsTamuDiv = document.getElementById('sts_tamu').parentElement;
+		var stsTamuSelect = document.getElementById('sts_tamu');
+		
+		if (this.value > 2) {
+			alert('Jumlah tamu yang dapat dimasukkan maksimal hanya 2');
+			this.value = 2;
+			stsTamuDiv.style.display = 'block';
+			// Enable only "Belum bayar" and "Lunas" options
+			stsTamuSelect.options[0].disabled = true;
+			stsTamuSelect.options[1].disabled = false;
+			stsTamuSelect.options[2].disabled = false;
+			if (stsTamuSelect.value == '0') {
+				stsTamuSelect.value = '1';
+			}
+		} else if (this.value < 0) {
+			this.value = 0;
+			stsTamuDiv.style.display = 'none';
+			stsTamuSelect.value = '0';
+		} else if (this.value == 0) {
+			stsTamuDiv.style.display = 'none';
+			stsTamuSelect.value = '0';
+		} else {
+			stsTamuDiv.style.display = 'block';
+			// Enable only "Belum bayar" and "Lunas" options
+			stsTamuSelect.options[0].disabled = true;
+			stsTamuSelect.options[1].disabled = false;
+			stsTamuSelect.options[2].disabled = false;
+			if (stsTamuSelect.value == '0') {
+				stsTamuSelect.value = '1';
+			}
+		}
+	});
+
+	// Check initial value on page load
+	window.addEventListener('load', function() {
+		var tamuValue = document.getElementById('tamu').value;
+		var stsTamuDiv = document.getElementById('sts_tamu').parentElement;
+		var stsTamuSelect = document.getElementById('sts_tamu');
+		
+		if (tamuValue == 0) {
+			stsTamuDiv.style.display = 'none';
+			stsTamuSelect.value = '0';
+		} else {
+			// Enable only "Belum bayar" and "Lunas" options for non-zero tamu
+			stsTamuSelect.options[0].disabled = true;
+			stsTamuSelect.options[1].disabled = false;
+			stsTamuSelect.options[2].disabled = false;
+			if (stsTamuSelect.value == '0') {
+				stsTamuSelect.value = '1';
+			}
+		}
+	});
 </script>
 </body>
 

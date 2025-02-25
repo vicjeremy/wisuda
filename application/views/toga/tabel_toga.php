@@ -1,4 +1,4 @@
-<div class="table-responsive">
+<div class="table-responsive" style="max-height: 62vh; overflow-y: scroll; overflow-x: scroll; ">
     <div id="table1_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
         <div class="row dt-row">
             <div class="col-sm-12">

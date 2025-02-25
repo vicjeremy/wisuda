@@ -20,7 +20,9 @@ class Akd extends CI_Controller
 		$current_time = time();
 
 		if ($last_activity && ($current_time - $last_activity) > 1800) {
-			$this->session->unset_userdata(['id', 'level']);
+			$this->session->unset_userdata(['id']);
+			$params = array('user', 'level', 'last_activity'); // Menghapus last_activity juga
+        	$this->session->unset_userdata($params);
 			redirect('login');
 		}
 
@@ -129,19 +131,28 @@ class Akd extends CI_Controller
 		}
 	}
 
-	private function convert_date($date)
-	{
-		if (empty($date))
-			return null; // Jika tanggal kosong, kembalikan null
 
+	private function convert_date($date) 
+	{
+		if (empty($date)) {
+			return null;
+		}
+
+		// Try HTML date format first (YYYY-MM-DD)
+		$date_obj = DateTime::createFromFormat('Y-m-d', $date);
+		if ($date_obj) {
+			return $date_obj->format('dmy');
+		}
+
+		// Map bulan dalam bahasa Indonesia
 		$month_map = [
 			'Januari' => '01',
-			'Februari' => '02',
+			'Februari' => '02', 
 			'Maret' => '03',
 			'April' => '04',
 			'Mei' => '05',
 			'Juni' => '06',
-			'Juli' => '07',
+			'Juli' => '07', 
 			'Agustus' => '08',
 			'September' => '09',
 			'Oktober' => '10',
@@ -149,24 +160,50 @@ class Akd extends CI_Controller
 			'Desember' => '12'
 		];
 
-		$parts = explode(' ', trim($date)); // Pisahkan tanggal menjadi bagian-bagian
+		// Bersihkan input
+		$date = trim($date);
 
-		// Validasi jika format tidak sesuai (pastikan ada 3 bagian)
-		if (count($parts) !== 3) {
-			return null; // Format salah, kembalikan null
+		// Coba format dengan nama bulan (12 April 2004)
+		if (strpos($date, ' ') !== false) {
+			$parts = explode(' ', $date);
+			if (count($parts) === 3) {
+				$day = str_pad($parts[0], 2, '0', STR_PAD_LEFT);
+				$month = $month_map[$parts[1]] ?? null;
+				$year = $parts[2];
+				
+				if ($month) {
+					$year = substr($year, -2); // Ambil 2 digit terakhir
+					return $day . $month . $year;
+				}
+			}
 		}
 
-		$day = str_pad($parts[0], 2, '0', STR_PAD_LEFT); // Pastikan 2 digit
-		$month = $month_map[$parts[1]] ?? null; // Cek apakah nama bulan valid
-		$year = substr($parts[2], -2); // Ambil 2 digit terakhir dari tahun
+		// Handle format dengan separator (12-04-2004, 12/04/2004, dll)
+		$date = preg_replace('/[^0-9-\/]/', '', $date);
+		$separators = ['-', '/'];
+		
+		foreach ($separators as $separator) {
+			if (strpos($date, $separator) !== false) {
+				$parts = explode($separator, $date);
+				if (count($parts) === 3) {
+					$day = str_pad($parts[0], 2, '0', STR_PAD_LEFT);
+					$month = str_pad($parts[1], 2, '0', STR_PAD_LEFT);
+					$year = $parts[2];
 
-		// Jika bulan tidak valid, kembalikan null
-		if (!$month) {
-			return null;
+					if ($day > 31 || $month > 12) {
+						continue;
+					}
+
+					$year = substr($year, -2);
+					return $day . $month . $year;
+				}
+			}
 		}
 
-		return $day . $month . $year;
+		return null;
 	}
+	
+	
 
 
 	public function lihat_data()
@@ -180,7 +217,7 @@ class Akd extends CI_Controller
 	{
 		$data = [
 			'nama' => $this->input->post('nama'),
-			'tgl_lahir' => $this->input->post('tgl_lahir'),
+			'tgl_lahir' => $this->convert_date($this->input->post('tgl_lahir')),
 			'fakultas' => $this->input->post('fakultas'),
 			'prodi' => $this->input->post('prodi'),
 			'ipk' => $this->input->post('ipk')

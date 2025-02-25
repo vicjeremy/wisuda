@@ -5,24 +5,54 @@
                 <table class="table" id="table2" aria-describedby="table1_info">
                     <thead>
                         <tr>
-                            <th class="sorting" style="width: 10%">IPK</th>
-                            <th class="sorting" style="width: 20%">Skripsi</th>
-                            <th class="sorting" style="width: 15%">Status Toga</th>
-                            <th class="sorting" style="width: 15%">Status Keuangan</th>
-                            <th class="sorting" style="width: 15%">Status Pembayaran Toga</th>
-                            <th class="sorting" style="width: 25%">Status Foto</th>
+                            <th class="sorting" style="width: 20%">Status Pengambilan Toga</th>
+                            <th class="sorting" style="width: 20%">Status Pembayaran Tamu Tambahan</th>
+                            <th class="sorting" style="width: 20%">Status Pembayaran Wisuda</th>
+                            <th class="sorting" style="width: 20%">Status Pembayaran Toga</th>
+                            <th class="sorting" style="width: 25%">Status Upload Foto</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php if (!empty($mahasiswa)): ?>
                             <tr>
-                                <td class="align-middle"><?php echo $mahasiswa['ipk']; ?></td>
-                                <td class="align-middle"><?php echo $mahasiswa['skripsi']; ?></td>
-                                <td class="align-middle">
-                                    <span class="badge <?php echo $mahasiswa['ambil_toga'] == 1 ? 'bg-success' : 'bg-warning'; ?>">
-                                        <?php echo $mahasiswa['ambil_toga'] == 1 ? 'Sudah Ambil' : 'Belum Ambil'; ?>
-                                    </span>
-                                </td>
+								<td class="align-middle">
+									<span class="badge <?php echo $mahasiswa['ambil_toga'] == 1 ? 'bg-success' : 'bg-warning'; ?>">
+										<?php echo $mahasiswa['ambil_toga'] == 1 ? 'Sudah Ambil' : 'Belum Ambil'; ?>
+									</span>
+								</td>
+								<td class="align-middle">
+									<span class="badge <?php 
+										switch ($mahasiswa['sts_tamu']) {
+											case 0:
+												echo 'bg-info';
+												break;
+											case 1:
+												echo 'bg-warning';
+												break;
+											case 2:
+												echo 'bg-success';
+												break;
+											default:
+												echo 'bg-secondary';
+										}
+									?>">
+										<?php 
+										switch ($mahasiswa['sts_tamu']) {
+											case 0:
+												echo 'Tidak ada tamu tambahan';
+												break;
+											case 1:
+												echo 'Belum Lunas';
+												break;
+											case 2:
+												echo 'Sudah Lunas';
+												break;
+											default:
+												echo 'Status tidak diketahui';
+										}
+										?>
+									</span>
+								</td>
                                 <td class="align-middle">
                                     <span class="badge <?php echo isset($mahasiswa['sts_wsd']) && $mahasiswa['sts_wsd'] == 1 ? 'bg-success' : 'bg-warning'; ?>">
                                         <?php echo isset($mahasiswa['sts_wsd']) ? ($mahasiswa['sts_wsd'] == 1 ? 'Sudah Lunas' : 'Belum Lunas') : 'Data tidak tersedia'; ?>
@@ -39,21 +69,24 @@
                                     $statusText = '';
                                     switch ($mahasiswa['sts_foto']) {
                                         case 0:
-                                            $statusClass = 'bg-info';
-                                            $statusText = 'Sedang di proses';
+                                            $statusClass = 'bg-warning';
+                                            $statusText = 'Belum upload';
                                             break;
                                         case 1:
+                                            $statusClass = 'bg-info';
+                                            $statusText = 'Sedang diperiksa';
+                                            break;
+                                        case 2:
                                             $statusClass = 'bg-success';
                                             $statusText = 'Disetujui';
                                             break;
-                                        case 2:
+                                        case 3:
                                             $statusClass = 'bg-danger';
                                             $statusText = 'Ditolak Harap Upload Ulang Foto dengan Almet';
                                             break;
-                                        case 3:
+                                        case 4:
                                             $statusClass = 'bg-danger';
                                             $statusText = 'Ditolak Harap Upload Ulang Dengan Foto Keluarga';
-                                            break;
                                         case 4:
                                             $statusClass = 'bg-danger';
                                             $statusText = 'Ditolak Harap Upload Ulang Semua Foto';

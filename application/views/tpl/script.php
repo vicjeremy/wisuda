@@ -1,3 +1,5 @@
+
+
 <!-- jQuery -->
 <script src="<?= base_url('assets/adminlte/plugins/jquery/jquery.min.js'); ?>"></script>
 
@@ -49,7 +51,7 @@
             "searching": false,
             "ordering": true,
             "info": true,
-            "autoWidth": false,
+            "autoWidth": true,
             "responsive": true,
         });
 
@@ -74,7 +76,7 @@
             "searching": false,
             "ordering": true,
             "info": true,
-            "autoWidth": false,
+            "autoWidth": true,
             "responsive": true,
         });
     });
@@ -142,7 +144,7 @@
                 "searching": false,
                 "ordering": true,
                 "info": true,
-                "autoWidth": false,
+                "autoWidth": true,
                 "responsive": true,
                 "buttons": [{
                         extend: 'copy',

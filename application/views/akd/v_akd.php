@@ -1,6 +1,6 @@
 <div id="app">
-  <div id="main" class="layout-horizontal">
-    <div class="container">
+  <div id="main" class="layout-horizontal" style="margin-left: 5vw; margin-right: 5vw;">
+    <!-- <div class="container"> -->
       <div class="page-heading">
         <h3>Dashboard Akademik</h3>
       </div>
@@ -10,7 +10,7 @@
             <!-- Main Content -->
             <main class="page-content">
               <div class="container-fluid">
-                <div class="content-header">
+                <!-- <div class="content-header">
                   <div class="page-title">
                     <div class="row mb-2">
                       <div class="col-12 col-md-6">
@@ -26,7 +26,7 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> -->
 
                 <section class="section">
                   <div class="card">
@@ -45,16 +45,16 @@
           </div>
         </section>
       </div>
-    </div>
+    <!-- </div> -->
 
     <footer>
-      <div class="container">
-        <div class="footer clearfix mb-0 text-muted">
+      <!-- <div class="container"> -->
+        <div class="footer clearfix mb-0 text-muted" style="margin-left: 1vw; margin-right: 5vw;">
           <div class="float-start">
             <p>&copy; 2025 Sistem Wisuda. Semua hak cipta dilindungi.</p>
           </div>
         </div>
-      </div>
+      <!-- </div> -->
     </footer>
   </div>
 </div>

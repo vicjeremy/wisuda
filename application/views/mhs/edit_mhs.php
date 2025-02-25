@@ -72,61 +72,105 @@
                                     <form action="<?php echo base_url('mhs/update_data'); ?>" method="post">
                                         <div class="row">
                                             <div class="col-md-6">
+												<input type="hidden" name="id_mhs" id="id_mhs" value="<?php echo isset($result['id_mhs']) ? $result['id_mhs'] : ''; ?>">
                                                 <div class="form-group">
                                                     <label for="nim" class="form-label">NIM</label>
-                                                    <input type="text" name="nim" id="nim" class="form-control" value="<?php echo isset($result['nim']) ? $result['nim'] : ''; ?>" readonly>
+                                                    <input type="text" name="nim" id="nim" class="form-control" value="<?php echo isset($result['nim']) ? $result['nim'] : ''; ?>" disabled>
+                                                    <input type="hidden" name="nim" id="nim" class="form-control" value="<?php echo isset($result['nim']) ? $result['nim'] : ''; ?>" >
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="nama" class="form-label">Nama</label>
-                                                    <input type="text" name="nama" id="nama" class="form-control" value="<?php echo isset($result['nama']) ? $result['nama'] : ''; ?>">
+                                                    <input type="text" name="nama" id="nama" class="form-control" value="<?php echo isset($result['nama']) ? $result['nama'] : ''; ?>"disabled>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="lok_lahir" class="form-label">Tempat Lahir</label>
-                                                    <input type="text" name="lok_lahir" id="lok_lahir" class="form-control" value="<?php echo isset($result['lok_lahir']) ? $result['lok_lahir'] : ''; ?>">
+                                                    <input type="text" name="lok_lahir" id="lok_lahir" class="form-control" value="<?php echo isset($result['lok_lahir']) ? $result['lok_lahir'] : ''; ?>"disabled>
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="tgl_lahir" class="form-label">Tanggal Lahir</label>
-                                                    <input type="date" name="tgl_lahir" id="tgl_lahir" class="form-control" value="<?php echo isset($result['tgl_lahir']) ? $result['tgl_lahir'] : ''; ?>">
+                                                    <input type="date" name="tgl_lahir" id="tgl_lahir" class="form-control" value="<?php echo isset($result['tgl_lahir']) ? $result['tgl_lahir'] : ''; ?>"disabled>
                                                 </div>
-                                                <div class="form-group">
+												<div class="form-group">
+													<label for="fakultas" class="form-label">Fakultas</label>
+													<input type="text" name="fakultas" id="fakultas" class="form-control" value="<?php echo isset($result['fakultas']) ? $result['fakultas'] : ''; ?>" disabled>
+												</div>
+												<div class="form-group">
+													<label for="prodi" class="form-label">Prodi</label>
+													<input type="text" name="prodi" id="prodi" class="form-control" value="<?php echo isset($result['prodi']) ? $result['prodi'] : ''; ?>" disabled>
+													
+												</div>
+												<div class="form-group">
+													<label for="ipk" class="form-label">IPK</label>
+													<input type="text" name="ipk" id="ipk" class="form-control" value="<?php echo isset($result['ipk']) ? $result['ipk'] : ''; ?>" disabled>
+												</div>
+												<div class="form-group">
+                                                    <label for="tamu" class="form-label">Jumlah Tamu Tambahan</label>
+                                                    <input type="text" name="tamu" id="tamu" class="form-control" value="<?php echo isset($result['tamu']) ? $result['tamu'] : ''; ?>"disabled>
+                                                </div>
+                                                <h6>Hubungi BAAK untuk mengubah data ini.</h6>
+                                            </div>
+                                            <div class="col-md-6">
+												<div class="form-group">
+                                                    <label for="skripsi" class="form-label">Judul Skripsi</label>
+                                                    <textarea name="skripsi" id="skripsi" class="form-control" rows="3"><?php echo isset($result['skripsi']) ? $result['skripsi'] : ''; ?></textarea>
+                                                </div>
+												<div class="form-group">
                                                     <label for="alamat" class="form-label">Alamat</label>
                                                     <textarea name="alamat" id="alamat" class="form-control" rows="3"><?php echo isset($result['alamat']) ? $result['alamat'] : ''; ?></textarea>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label for="email" class="form-label">Email</label>
                                                     <input type="email" name="email" id="email" class="form-control" value="<?php echo isset($result['email']) ? $result['email'] : ''; ?>">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="hp" class="form-label">No HP</label>
-                                                    <input type="text" name="hp" id="hp" class="form-control" value="<?php echo isset($result['hp']) ? $result['hp'] : ''; ?>">
+                                                    <input type="tel" name="hp" id="hp" class="form-control" value="<?php echo isset($result['hp']) ? $result['hp'] : ''; ?>">
                                                 </div>
-                                                <div class="form-group">
-                                                    <label for="size" class="form-label">Ukuran Toga</label>
+												<div class="form-group">
+													<label for="size" class="form-label">Ukuran Baju Toga</label>
+                                                    <select class="form-control" id="size" name="size" <?php echo ($result['sts_toga'] == 1) ? 'disabled' : ''; ?> required>
+                                                        <option> Pilih Ukuran</option>
+                                                        <option value="S" <?php echo ($result['size'] == 'S') ? 'selected' : ''; ?>>S</option>
+                                                        <option value="M" <?php echo ($result['size'] == 'M') ? 'selected' : ''; ?>>M</option>
+                                                        <option value="L" <?php echo ($result['size'] == 'L') ? 'selected' : ''; ?>>L</option>
+                                                        <option value="XL" <?php echo ($result['size'] == 'XL') ? 'selected' : ''; ?>>XL</option>
+                                                        <option value="XXL" <?php echo ($result['size'] == 'XXL') ? 'selected' : ''; ?>>XXL</option>
+                                                    </select>
+												</div>
+                                                <!-- <div class="form-group">
+                                                    <label for="size" class="form-label">Ukuran Baju Toga</label>
                                                     <input type="text" name="size" id="size" class="form-control" value="<?php echo isset($result['size']) ? $result['size'] : ''; ?>">
-                                                </div>
-                                                <div class="form-group">
+                                                </div> -->
+                                                <!-- <div class="form-group">
                                                     <label for="foto_almet" class="form-label">Foto Almet</label>
-                                                    <input type="text" name="foto_almet" id="foto_almet" class="form-control" value="<?php echo isset($result['foto_almet']) ? $result['foto_almet'] : ''; ?>">
+                                                    <input type="url" name="foto_almet" id="foto_almet" class="form-control" value="<?php echo isset($result['foto_almet']) ? $result['foto_almet'] : ''; ?>">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="foto_keluarga" class="form-label">Foto Keluarga</label>
-                                                    <input type="text" name="foto_keluarga" id="foto_keluarga" class="form-control" value="<?php echo isset($result['foto_keluarga']) ? $result['foto_keluarga'] : ''; ?>">
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="tamu" class="form-label">Tamu</label>
-                                                    <input type="text" name="tamu" id="tamu" class="form-control" value="<?php echo isset($result['tamu']) ? $result['tamu'] : ''; ?>">
-                                                </div>
-                                                <!-- Hidden fields to maintain data -->
-                                                <input type="hidden" name="ambil_toga" value="<?php echo isset($result['ambil_toga']) ? $result['ambil_toga'] : '0'; ?>">
-                                                <input type="hidden" name="sts_keu" value="<?php echo isset($result['sts_keu']) ? $result['sts_keu'] : '0'; ?>">
-                                                <input type="hidden" name="sts_toga" value="<?php echo isset($result['sts_toga']) ? $result['sts_toga'] : '0'; ?>">
-                                                <input type="hidden" name="sts_foto" value="<?php echo isset($result['sts_foto']) ? $result['sts_foto'] : '0'; ?>">
+                                                    <input type="url" name="foto_keluarga" id="foto_keluarga" class="form-control" value="<?php echo isset($result['foto_keluarga']) ? $result['foto_keluarga'] : ''; ?>">
+                                                </div> -->
+                                                <?php if ($result['sts_foto'] != 1): ?>
+												<div class="form-group">
+													<label for="foto_almet" class="form-label">Foto dengan Almet</label>
+													<?php if ($result['sts_foto'] == 2 || $result['sts_foto'] == 4): ?>
+													<input type="text" class="form-control" id="foto_almet" name="foto_almet" value="<?php echo $result['foto_almet']; ?>" required>
+													<?php else: ?>
+													<p class="form-control-static"><?php echo $result['foto_almet']; ?></p>
+													<?php endif; ?>
+												</div>
+												<div class="form-group">
+													<label for="foto_keluarga" class="form-label">Foto dengan Keluarga</label>
+													<?php if ($result['sts_foto'] == 3 || $result['sts_foto'] == 4): ?>
+													<input type="text" class="form-control" id="foto_keluarga" name="foto_keluarga" value="<?php echo $result['foto_keluarga']; ?>" required>
+													<?php else: ?>
+													<p class="form-control-static"><?php echo $result['foto_keluarga']; ?></p>
+													<?php endif; ?>
+												</div>
+												<?php endif; ?>
+												<div class="form-group mt-3">
+													<button type="submit" class="btn btn-primary">Update Data</button>
+												</div>
                                             </div>
-                                        </div>
-                                        <div class="form-group mt-3">
-                                            <button type="submit" class="btn btn-primary">Update Data</button>
                                         </div>
                                     </form>
                                 </div>

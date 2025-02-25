@@ -1,4 +1,4 @@
-<main class="page-content">
+<main class="page-content" style="margin-left: 5vw; margin-right: 5vw;">
 	<section class="content-header">
 		<div class="container-fluid">
 			<div class="row mb-2">
@@ -59,14 +59,14 @@
 			<!-- /.col -->
 		</div>
 		<!-- /.row -->
+		<div class="footer clearfix mb-0 text-muted">
+			<div class="float-start">
+				<p>&copy; 2025 Sistem Wisuda. Semua hak cipta dilindungi.</p>
+			</div>
+		</div>
 		</div>
 	</section>
 </main>
-<div class="footer clearfix mb-0 text-muted">
-	<div class="float-start">
-		<p>&copy; 2025 Sistem Wisuda. Semua hak cipta dilindungi.</p>
-	</div>
-</div>
 
 <!-- Mazor -->
 <script src="assets/mazor/static/js/components/dark.js"></script>

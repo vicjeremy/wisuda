@@ -53,18 +53,38 @@
       </nav>
       <!-- ./Navbar -->
 
-      <div class="container">
-        <div class="page-content">
+      <!-- <div class="container"> -->
+        <div class="page-content" style="margin-left: 5vw; margin-right: 5vw;">
           <section class="content-header">
             <div class="container-fluid">
               <div class="row mb-2">
                 <div class="col-12 col-md-6 order-md-1 order-last">
-                  <h3>Profile Mahasiswa</h3>
+                  <h3>Selamat datang <b><?php echo $mahasiswa['nama']?></b>,<br>Profile Mahasiswa</h3>
                 </div>
               </div>
             </div>
           </section>
-
+					
+					<!-- Table -->
+					<section class="row">
+						<div class="col-12">
+							<div class="card">
+								<div class="card-body">
+									<!-- Alert -->
+									<?php if ($this->session->flashdata('update_success')): ?>
+										<div class="alert alert-success alert-dismissible fade show" role="alert">
+											Data berhasil diupdate.
+											<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+									<?php endif; ?>
+									<?php $this->load->view('mhs/table_mhs') ?>
+								</div>
+							</div>
+						</div>
+					</section>
+					
           <!-- Profile -->
           <div class="col-12">
             <div class="card">
@@ -74,25 +94,6 @@
             </div>
           </div>
 
-          <!-- Table -->
-          <section class="row">
-            <div class="col-12">
-              <div class="card">
-                <div class="card-body">
-                  <!-- Alert -->
-                  <?php if ($this->session->flashdata('update_success')): ?>
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                      Data berhasil diupdate.
-                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-                  <?php endif; ?>
-                  <?php $this->load->view('mhs/table_mhs') ?>
-                </div>
-              </div>
-            </div>
-          </section>
 
           <!-- Modal -->
           <div class="modal fade" id="inputModal" tabindex="-1" role="dialog" aria-labelledby="inputModalLabel" aria-hidden="true">
@@ -126,16 +127,16 @@
             </div>
           </div>
         </div>
-      </div>
+      <!-- </div> -->
 
       <footer>
-        <div class="container">
-          <div class="footer clearfix mb-0 text-muted">
+        <!-- <div class="container"> -->
+          <div class="footer clearfix mb-0 text-muted" style="margin-left: 5vw; margin-right: 5vw;">
             <div class="float-start">
               <p>&copy; 2025 Sistem Wisuda. Semua hak cipta dilindungi.</p>
             </div>
           </div>
-        </div>
+        <!-- </div> -->
       </footer>
     </div>
   </div>

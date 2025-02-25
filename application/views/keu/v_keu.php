@@ -1,5 +1,5 @@
 <!-- Content Wrapper. Contains page content -->
-<div class="page-content" style="margin-left: 10px; padding-left: 10px;">
+<div class="page-content" style="margin-left: 5vw; margin-right: 5vw;">
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <div class="container-fluid">
@@ -13,7 +13,7 @@
 
   <!-- Main content -->
   <section class="content">
-    <div class="container-fluid">
+    <div class="col-12">
       <div class="row">
         <div class="col-12">
           <div class="card">
@@ -29,8 +29,18 @@
       </div>
       <!-- /.row -->
     </div>
+		
     <!-- /.container-fluid -->
   </section>
+	<footer>
+        <!-- <div class="container"> -->
+          <div class="footer clearfix mb-0 text-muted" style="margin-left: 1vw; margin-right: 5vw;">
+            <div class="float-start">
+              <p>&copy; 2025 Sistem Wisuda. Semua hak cipta dilindungi.</p>
+            </div>
+          </div>
+        <!-- </div> -->
+      </footer>
   <!-- /.content -->
 </div>
 <!-- /.content-wrapper -->

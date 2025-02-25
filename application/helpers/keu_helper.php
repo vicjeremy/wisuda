@@ -5,7 +5,7 @@ function pembayaran($status)
         0 => 'Belum Bayar',
         1 => 'Lunas'
     ];
-    return $pembayaran[$status] ?? 'Unknown';
+    return $pembayaran[$status] ?? 'Tidak ada tamu tambahan';
 }
 
 

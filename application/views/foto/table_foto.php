@@ -1,8 +1,8 @@
-<div class="table-responsive" style="max-height: 500px; overflow-y: auto;">
+<div class="table-responsive" style="max-height: 62vh; overflow-y: scroll; overflow-x: scroll; ">
     <div id="table1_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
         <div class="row dt-row">
             <div class="col-sm-12">
-                <table class="table table-bordered dataTable no-footer" id="table1" aria-describedby="table1_info" style="width: 100%;">
+                <table class="table table-bordered dataTable no-footer" id="table1" aria-describedby="table1_info">
                     <thead>
                         <tr>
                             <th class="sorting sorting_asc" tabindex="0" aria-controls="table1" style="min-width: 100px;">Nim</th>

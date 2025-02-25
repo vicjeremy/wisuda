@@ -1,4 +1,4 @@
-<div class="table-responsive" style="height: 300px; overflow-y: scroll;">
+<div class="table-responsive" style="max-height: 62vh; overflow-y: scroll; overflow-x: scroll; ">
     <table id="example1" class="table table-bordered table-striped">
         <thead>
             <tr>
@@ -21,15 +21,15 @@
                     <td><?php echo $no++; ?></td>
                     <td><?php echo $value['nim']; ?></td>
                     <td><?php echo $value['nama']; ?></td>
-                    <td><?php echo $value['lok_lahir']; ?></td>
-                    <td><?php echo $value['tgl_lahir']; ?></td>
+					<td><?php echo $value['lok_lahir']; ?></td>
+                    <td><?php echo convert_date_format($value['tgl_lahir']); ?></td>
                     <td><?php echo $value['fakultas']; ?></td>
                     <td><?php echo $value['prodi']; ?></td>
                     <td><?php echo $value['ipk']; ?></td>
                     <td>
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal"
                             data-nim="<?php echo $value['nim']; ?>" data-nama="<?php echo $value['nama']; ?>"
-                            data-tgl_lahir="<?php echo $value['tgl_lahir']; ?>"
+                            data-tgl_lahir="<?php echo date_to_html($value['tgl_lahir']); ?>"
                             data-fakultas="<?php echo $value['fakultas']; ?>" data-prodi="<?php echo $value['prodi']; ?>"
                             data-ipk="<?php echo $value['ipk']; ?>">
                             Edit
@@ -44,3 +44,4 @@
         </tbody>
     </table>
 </div>
+

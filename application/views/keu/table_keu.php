@@ -1,4 +1,4 @@
-<div class="table-responsive" style="height: 300px; overflow-y: scroll;">
+<div class="table-responsive" style="max-height: 62vh; overflow-y: scroll; overflow-x: scroll;">
 <table id="example1" class="table table-bordered table-hover">
     <thead>
         <tr>
@@ -7,9 +7,9 @@
             <th>Fakultas</th>
             <th>Prodi</th>
             <th>Tamu Tambahan</th>
+            <th>Pembayaran Tamu Tambahan</th>
             <th>Pembayaran Wisuda</th>
             <th>Pembayaran Toga</th>
-            <th>Pembayaran Tamu Tambahan</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -21,28 +21,20 @@
                 <td><?php echo $sts['fakultas']; ?></td>
                 <td><?php echo $sts['prodi']; ?></td>
                 <td><?php echo $sts['tamu']; ?></td>
+                <td><?= ucfirst(pembayaran($sts['sts_tamu'])) ?></td>
                 <td><?= ucfirst(pembayaran($sts['sts_wsd'])) ?></td>
                 <td><?= ucfirst(pembayaran($sts['sts_toga'])) ?></td>
-                <td><?= ucfirst(pembayaran($sts['sts_tamu'])) ?></td>
                 <td>
-                    <a href="<?php echo base_url(); ?>Keu/edit_uang/<?php echo $sts['nim']; ?>"
-                        class="button">Edit</a>
+                    <form method="post" action="<?php echo base_url('Keu/edit_uang/'.$sts['nim']); ?>" style="display: inline;">
+                        <button type="submit" class="btn btn-primary btn-sm">
+                            Update Data
+                        </button>
+                    </form>
                 </td>
             </tr>
         <?php endforeach; ?>
     </tbody>
     <tfoot>
-        <tr>
-            <th>Nim</th>
-            <th>Nama</th>
-            <th>Fakultas</th>
-            <th>Prodi</th>
-            <th>Tamu Tambahan</th>
-            <th>Pembayaran Wisuda</th>
-            <th>Pembayaran Toga</th>
-            <th>Pembayaran Tamu Tambahan</th>
-            <th>Action</th>
-        </tr>
     </tfoot>
 </table>
 </div>

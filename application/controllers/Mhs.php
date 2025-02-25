@@ -32,7 +32,7 @@ class Mhs extends CI_Controller
 		$this->load->model('M_mhs');
 		
 		// Get the student data
-		$result = $this->M_mhs->get_data();
+		$result = $this->M_mhs->get_data_by_nim($nim);
 		
 		// Check if data exists
 		if (empty($result)) {
@@ -48,16 +48,15 @@ class Mhs extends CI_Controller
 
 	public function update_data()
 	{
-		$allowed_fields = array(
-			'nim', 'nama', 'lok_lahir', 'tgl_lahir', 'alamat', 
-			'email', 'hp', 'size', 'foto_almet', 'foto_keluarga', 
-			'tamu', 'fakultas', 'prodi', 'ipk', 'skripsi'
-		);
+		$data = array();
+		$fields = ['id_mhs', 'nim', 'skripsi', 'alamat', 'size', 'email', 'hp', 'foto_almet', 'foto_keluarga'];
 		
-		$data = array_intersect_key(
-			$this->input->post(),
-			array_flip($allowed_fields)
-		);
+		foreach ($fields as $field) {
+			$value = $this->input->post($field);
+			if (!empty($value)) {
+			$data[$field] = $value;
+			}
+		}
 		
 		$this->load->model('M_mhs');
 		$this->M_mhs->update_mahasiswa($data);

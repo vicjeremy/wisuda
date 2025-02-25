@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 19, 2025 at 12:22 PM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 7.4.33
+-- Waktu pembuatan: 25 Feb 2025 pada 15.10
+-- Versi server: 10.4.27-MariaDB
+-- Versi PHP: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,7 +24,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_akun`
+-- Struktur dari tabel `tbl_akun`
 --
 
 CREATE TABLE `tbl_akun` (
@@ -37,7 +37,7 @@ CREATE TABLE `tbl_akun` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Dumping data for table `tbl_akun`
+-- Dumping data untuk tabel `tbl_akun`
 --
 
 INSERT INTO `tbl_akun` (`id_user`, `user`, `pass`, `email`, `level`, `reset_token`) VALUES
@@ -46,13 +46,13 @@ INSERT INTO `tbl_akun` (`id_user`, `user`, `pass`, `email`, `level`, `reset_toke
 (3, 'keuangan', '202cb962ac59075b964b07152d234b70', 'Belum Diatur', 3, 'Belum Diatur'),
 (4, 'toga', '202cb962ac59075b964b07152d234b70', 'Belum Diatur', 4, 'Belum Diatur'),
 (5, 'foto', '202cb962ac59075b964b07152d234b70', 'Belum Diatur', 5, 'Belum Diatur'),
-(6, 'mhs', '202cb962ac59075b964b07152d234b70', 'Belum Diatur', 6, 'Belum Diatur'),
-(11, 'A01.051.005', '001d2d283b7f3c7378e363313b483e51', 'Belum Diatur', 6, 'Belum Diatur');
+(6, 'mhs', '202cb962ac59075b964b07152d234b70', 'mhs@unkartur.com', 6, 'Belum Diatur'),
+(16, 'A01.051.005', '001d2d283b7f3c7378e363313b483e51', 'Belum Diatur', 6, 'Belum Diatur');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_mhs`
+-- Struktur dari tabel `tbl_mhs`
 --
 
 CREATE TABLE `tbl_mhs` (
@@ -76,21 +76,21 @@ CREATE TABLE `tbl_mhs` (
   `tamu` int(11) DEFAULT 0,
   `sts_wsd` int(11) DEFAULT 0,
   `sts_toga` int(11) DEFAULT 0,
-  `sts_tamu` int(11) DEFAULT 0
+  `sts_tamu` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Dumping data for table `tbl_mhs`
+-- Dumping data untuk tabel `tbl_mhs`
 --
 
 INSERT INTO `tbl_mhs` (`id_mhs`, `nim`, `nama`, `lok_lahir`, `tgl_lahir`, `fakultas`, `prodi`, `ipk`, `skripsi`, `alamat`, `email`, `hp`, `size`, `ambil_toga`, `foto_almet`, `foto_keluarga`, `sts_foto`, `tamu`, `sts_wsd`, `sts_toga`, `sts_tamu`) VALUES
-(1, '123', 'nama', 'smg', '123', 'asd', 'asd', 12, 'asd', 'asd', 'asd', 'asd', 'L', 1, 'https://www.google.com/', 'https://www.google.com/', 2, 1, 1, 1, 1),
-(4, 'A01.051.005', 'John Doe', 'Semarang', '120104', 'Sains dan Teknologi', 'Sistem Informasi', 3.5, 'Belum Diatur', 'Belum Diatur', 'Belum Diatur', 'Belum Diatur', 'Belum Diatur', 0, 'Belum Diatur', 'Belum Diatur', 0, 0, 0, 0, 0);
+(1, 'mhs', 'nama', 'smg', '050225', 'asd', 'asd', 4, 'asd', 'Semarang', 'mhs@unkartur.com', '01234567890', 'XL', 1, 'https://drive.google.com/file/d/1C5qx80Wm10BQjQPBrcuNH44yYnvIZEEF/view?usp=sharing', 'https://drive.google.com/file/d/1C5qx80Wm10BQjQPBrcuNH44yYnvIZEEF/view?usp=sharing', 3, 1, 0, 1, 0),
+(8, 'A01.051.005', 'John Doe', 'Semarang', '120104', 'Sains dan Teknologi', 'Sistem Informasi', 3.5, 'Belum Diatur', 'Belum Diatur', 'Belum Diatur', 'Belum Diatur', 'Belum Diatur', 0, 'Belum Diatur', 'Belum Diatur', 3, 0, 0, 0, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbl_toga`
+-- Struktur dari tabel `tbl_toga`
 --
 
 CREATE TABLE `tbl_toga` (
@@ -106,67 +106,68 @@ CREATE TABLE `tbl_toga` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
--- Dumping data for table `tbl_toga`
+-- Dumping data untuk tabel `tbl_toga`
 --
 
 INSERT INTO `tbl_toga` (`id_toga`, `nim`, `baju`, `topi`, `skecel`, `samir`, `logo`, `selendang`, `sts_selendang`) VALUES
-(1, '123', 1, 1, 1, 1, 1, 'Cumlaude', 1),
-(5, 'A01.051.005', 0, 0, 0, 0, 0, 'Belum Diatur', 0);
+(1, 'mhs', 1, 1, 0, 1, 1, 'Cumlaude', 1),
+(4, 'A01.051.005', 0, 0, 0, 0, 0, 'Belum Diatur', 0);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `tbl_akun`
+-- Indeks untuk tabel `tbl_akun`
 --
 ALTER TABLE `tbl_akun`
   ADD PRIMARY KEY (`id_user`);
 
 --
--- Indexes for table `tbl_mhs`
+-- Indeks untuk tabel `tbl_mhs`
 --
 ALTER TABLE `tbl_mhs`
-  ADD PRIMARY KEY (`id_mhs`);
+  ADD PRIMARY KEY (`id_mhs`),
+  ADD UNIQUE KEY `nim` (`nim`);
 
 --
--- Indexes for table `tbl_toga`
+-- Indeks untuk tabel `tbl_toga`
 --
 ALTER TABLE `tbl_toga`
   ADD PRIMARY KEY (`id_toga`),
-  ADD KEY `nim_toga` (`nim`);
+  ADD KEY `nimToga` (`nim`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT untuk tabel yang dibuang
 --
 
 --
--- AUTO_INCREMENT for table `tbl_akun`
+-- AUTO_INCREMENT untuk tabel `tbl_akun`
 --
 ALTER TABLE `tbl_akun`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
--- AUTO_INCREMENT for table `tbl_mhs`
+-- AUTO_INCREMENT untuk tabel `tbl_mhs`
 --
 ALTER TABLE `tbl_mhs`
-  MODIFY `id_mhs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_mhs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `tbl_toga`
+-- AUTO_INCREMENT untuk tabel `tbl_toga`
 --
 ALTER TABLE `tbl_toga`
-  MODIFY `id_toga` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_toga` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- Constraints for dumped tables
+-- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
 --
 
 --
--- Constraints for table `tbl_toga`
+-- Ketidakleluasaan untuk tabel `tbl_toga`
 --
 ALTER TABLE `tbl_toga`
-  ADD CONSTRAINT `nim_toga` FOREIGN KEY (`nim`) REFERENCES `tbl_mhs` (`nim`);
+  ADD CONSTRAINT `nimToga` FOREIGN KEY (`nim`) REFERENCES `tbl_mhs` (`nim`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

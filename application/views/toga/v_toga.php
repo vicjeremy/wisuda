@@ -43,8 +43,8 @@
                 </div>
             </nav>
 
-            <div class="container">
-                <div class="page-content">
+            <!-- <div class="container"> -->
+                <div class="page-content" style="margin-left: 5vw; margin-right: 5vw;">
                     <section class="row">
                         <div class="col-12">
                             <section class="content-header">
@@ -67,16 +67,16 @@
                         </div>
                     </section>
                 </div>
-            </div>
+            <!-- </div> -->
 
             <footer>
-                <div class="container">
-                    <div class="footer clearfix mb-0 text-muted">
+                <!-- <div class="container"> -->
+                    <div class="footer clearfix mb-0 text-muted" style="margin-left: 5vw; margin-right: 5vw;">
                         <div class="float-start">
                             <p>&copy; 2025 Sistem Wisuda. Semua hak cipta dilindungi.</p>
                         </div>
                     </div>
-                </div>
+                <!-- </div> -->
             </footer>
         </div>
     </div>
