@@ -14,67 +14,67 @@
     <script src="<?= base_url('assets/mazor/js/scripts.js'); ?>" defer></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <style>
-        .swiper {
-            width: 100%;
-            height: 100%;
-        }
+    .swiper {
+        width: 100%;
+        height: 100%;
+    }
 
-        .swiper-slide {
-            text-align: center;
-            font-size: 18px;
-            background: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
-        .swiper-slide img {
-            display: block;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+    .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 
-        .timeline {
-            position: relative;
-            margin-left: 2vw;
-        }
+    .timeline {
+        position: relative;
+        margin-left: 2vw;
+    }
 
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 0.4rem;
-            top: 0.5rem;
-            bottom: 0.5rem;
-            width: 0.2rem;
-            background: #ccc;
-        }
+    .timeline::before {
+        content: '';
+        position: absolute;
+        left: 0.4rem;
+        top: 0.5rem;
+        bottom: 0.5rem;
+        width: 0.2rem;
+        background: #ccc;
+    }
 
-        .timeline-item {
-            position: relative;
-            padding-left: 30px;
-            margin-bottom: 20px;
-            opacity: 1;
-            transition: all 0.3s ease;
-            max-height: 100px;
-            overflow: hidden;
-        }
+    .timeline-item {
+        position: relative;
+        padding-left: 30px;
+        margin-bottom: 20px;
+        opacity: 1;
+        transition: all 0.3s ease;
+        max-height: 100px;
+        overflow: hidden;
+    }
 
-        .timeline-dot {
-            position: absolute;
-            left: 0;
-            top: 6px;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: #ccc;
-        }
+    .timeline-dot {
+        position: absolute;
+        left: 0;
+        top: 6px;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: #ccc;
+    }
 
-        .timeline-date {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 4px;
-        }
+    .timeline-date {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 4px;
+    }
     </style>
 </head>
 
@@ -236,7 +236,7 @@
             <div class="container" style="margin-left: 2vw;">
                 <div class="footer clearfix mb-0 text-muted">
                     <div class="float-start">
-                        <p>&copy; 2025 Sistem Wisuda. Semua hak cipta dilindungi.</p>
+                        <p>&copy; Sistem Informasi Wisuda. Program Studi Sistem Informasi 2025.</p>
                     </div>
                 </div>
             </div>
@@ -254,22 +254,22 @@
 
     <!-- Initialize Swiper -->
     <script>
-        var swiper = new Swiper(".mySwiper", {
-            spaceBetween: 30,
-            centeredSlides: true,
-            autoplay: {
-                delay: 2500,
-                disableOnInteraction: false,
-            },
-            pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-            },
-            navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-            },
-        });
+    var swiper = new Swiper(".mySwiper", {
+        spaceBetween: 30,
+        centeredSlides: true,
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+    });
     </script>
 </body>
 
