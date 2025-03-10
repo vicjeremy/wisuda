@@ -817,7 +817,7 @@ progress {
   --bs-breakpoint-xxl: 1400px;
 }
 .row {
-  --bs-gutter-x: 1.5rem;
+  --bs-gutter-x: 1rem;
   --bs-gutter-y: 0;
   display: flex;
   flex-wrap: wrap;

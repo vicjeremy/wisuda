@@ -1,19 +1,21 @@
 <?php
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class Akses extends CI_Controller {
-    public function __construct(){
+class Akses extends CI_Controller
+{
+	public function __construct()
+	{
 		parent::__construct();
 		// Cek apakah pengguna sudah login dan waktu terakhir aktif
 		$last_activity = $this->session->userdata('last_activity');
 		$current_time = time(); // Ambil waktu saat ini
-		
+
 		// Jika waktu terakhir lebih dari 3 jam yang lalu, logout otomatis
 		if ($last_activity && ($current_time - $last_activity) > 1800) {
 			$this->session->unset_userdata('id');
 			$params = array('user', 'level', 'last_activity'); // Menghapus last_activity juga
-        	$this->session->unset_userdata($params);
+			$this->session->unset_userdata($params);
 			redirect('login');
 		}
 
@@ -23,7 +25,7 @@ class Akses extends CI_Controller {
 
 	public function index()
 	{
-        $level = $this->session->userdata('level');
+		$level = $this->session->userdata('level');
 
 		if ($level == 6) { // Mahasiswa
 			redirect('mahasiswa');
@@ -37,14 +39,24 @@ class Akses extends CI_Controller {
 			redirect('akademik');
 		} elseif ($level == 1) { // Admin
 			redirect('admin');
-		} else	{
-			$data['student_count'] = $this->M_akses->count_students();
-			$data['paid_students'] = $this->M_akses->count_paid_students();
-			$data['sudah_ambil'] = $this->M_akses->count_ambil_toga();
-			$data['tamu'] = $this->M_akses->count_tamu();
-			$data['mhs_data'] = $this->M_akses->get_mhs_data();
-			$this->load->view('akses/landing', $data);
-		} 
+		} else {
+			// $data['student_count'] = $this->M_akses->count_students();
+			// $data['paid_students'] = $this->M_akses->count_paid_students();
+			// $data['sudah_ambil'] = $this->M_akses->count_ambil_toga();
+			// $data['tamu'] = $this->M_akses->count_tamu();
+			// $data['mhs_data'] = $this->M_akses->get_mhs_data();
+			$this->load->view('akses/home');
+		}
 
-    }
+	}
+
+	public function informasi()
+	{
+		$data['student_count'] = $this->M_akses->count_students();
+		$data['paid_students'] = $this->M_akses->count_paid_students();
+		$data['sudah_ambil'] = $this->M_akses->count_ambil_toga();
+		$data['tamu'] = $this->M_akses->count_tamu();
+		$data['mhs_data'] = $this->M_akses->get_mhs_data();
+		$this->load->view('akses/informasi', $data);
+	}
 }

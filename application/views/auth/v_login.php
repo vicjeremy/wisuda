@@ -65,7 +65,7 @@
               class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Sign In</button>
           </form>
           <!-- Link Tambahan -->
-          <div class="text-center mt-5 text-lg fs-4">
+          <div class="text-center mt-5 text-sm fs-4">
             <p>
               <a class="font-bold" href="<?= site_url('Forgot') ?>">Lupa kata sandi?</a>
             </p>
