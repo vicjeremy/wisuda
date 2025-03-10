@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Waktu pembuatan: 25 Feb 2025 pada 15.10
--- Versi server: 10.4.27-MariaDB
--- Versi PHP: 7.4.33
+-- Host: localhost:3306
+-- Generation Time: Mar 10, 2025 at 04:34 AM
+-- Server version: 8.4.3
+-- PHP Version: 8.3.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,20 +24,20 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_akun`
+-- Table structure for table `tbl_akun`
 --
 
 CREATE TABLE `tbl_akun` (
-  `id_user` int(11) NOT NULL,
+  `id_user` int NOT NULL,
   `user` varchar(255) DEFAULT 'Belum Diatur',
   `pass` varchar(255) DEFAULT 'Belum Diatur',
   `email` varchar(255) DEFAULT 'Belum Diatur',
-  `level` int(11) DEFAULT 6,
+  `level` int DEFAULT '6',
   `reset_token` varchar(255) DEFAULT 'Belum Diatur'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
--- Dumping data untuk tabel `tbl_akun`
+-- Dumping data for table `tbl_akun`
 --
 
 INSERT INTO `tbl_akun` (`id_user`, `user`, `pass`, `email`, `level`, `reset_token`) VALUES
@@ -52,35 +52,35 @@ INSERT INTO `tbl_akun` (`id_user`, `user`, `pass`, `email`, `level`, `reset_toke
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_mhs`
+-- Table structure for table `tbl_mhs`
 --
 
 CREATE TABLE `tbl_mhs` (
-  `id_mhs` int(11) NOT NULL,
+  `id_mhs` int NOT NULL,
   `nim` varchar(50) NOT NULL,
   `nama` varchar(50) DEFAULT 'Belum Diatur',
   `lok_lahir` varchar(50) DEFAULT 'Belum Diatur',
   `tgl_lahir` varchar(255) DEFAULT 'Belum Diatur',
   `fakultas` varchar(50) DEFAULT 'Belum Diatur',
   `prodi` varchar(50) DEFAULT 'Belum Diatur',
-  `ipk` float DEFAULT 0,
+  `ipk` float DEFAULT '0',
   `skripsi` varchar(255) DEFAULT 'Belum Diatur',
   `alamat` varchar(255) DEFAULT 'Belum Diatur',
   `email` varchar(255) DEFAULT 'Belum Diatur',
   `hp` varchar(255) DEFAULT 'Belum Diatur',
   `size` varchar(20) DEFAULT 'Belum Diatur',
-  `ambil_toga` int(11) DEFAULT 0,
-  `foto_almet` text DEFAULT 'Belum Diatur',
-  `foto_keluarga` varchar(255) DEFAULT 'Belum Diatur',
-  `sts_foto` int(11) DEFAULT 0,
-  `tamu` int(11) DEFAULT 0,
-  `sts_wsd` int(11) DEFAULT 0,
-  `sts_toga` int(11) DEFAULT 0,
-  `sts_tamu` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `ambil_toga` int DEFAULT '0',
+  `foto_almet` text DEFAULT (_utf8mb4'Belum Diatur'),
+  `foto_keluarga` varchar(255) DEFAULT (_utf8mb4'Belum Diatur'),
+  `sts_foto` int DEFAULT '0',
+  `tamu` int DEFAULT '0',
+  `sts_wsd` int DEFAULT '0',
+  `sts_toga` int DEFAULT '0',
+  `sts_tamu` int DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
--- Dumping data untuk tabel `tbl_mhs`
+-- Dumping data for table `tbl_mhs`
 --
 
 INSERT INTO `tbl_mhs` (`id_mhs`, `nim`, `nama`, `lok_lahir`, `tgl_lahir`, `fakultas`, `prodi`, `ipk`, `skripsi`, `alamat`, `email`, `hp`, `size`, `ambil_toga`, `foto_almet`, `foto_keluarga`, `sts_foto`, `tamu`, `sts_wsd`, `sts_toga`, `sts_tamu`) VALUES
@@ -90,23 +90,23 @@ INSERT INTO `tbl_mhs` (`id_mhs`, `nim`, `nama`, `lok_lahir`, `tgl_lahir`, `fakul
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_toga`
+-- Table structure for table `tbl_toga`
 --
 
 CREATE TABLE `tbl_toga` (
-  `id_toga` int(11) NOT NULL,
+  `id_toga` int NOT NULL,
   `nim` varchar(50) NOT NULL,
-  `baju` int(11) DEFAULT 0,
-  `topi` int(11) DEFAULT 0,
-  `skecel` int(11) DEFAULT 0,
-  `samir` int(11) DEFAULT 0,
-  `logo` int(11) DEFAULT 0,
+  `baju` int DEFAULT '0',
+  `topi` int DEFAULT '0',
+  `skecel` int DEFAULT '0',
+  `samir` int DEFAULT '0',
+  `logo` int DEFAULT '0',
   `selendang` varchar(255) DEFAULT 'Belum Diatur',
-  `sts_selendang` int(11) DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `sts_selendang` int DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 --
--- Dumping data untuk tabel `tbl_toga`
+-- Dumping data for table `tbl_toga`
 --
 
 INSERT INTO `tbl_toga` (`id_toga`, `nim`, `baju`, `topi`, `skecel`, `samir`, `logo`, `selendang`, `sts_selendang`) VALUES
@@ -118,53 +118,53 @@ INSERT INTO `tbl_toga` (`id_toga`, `nim`, `baju`, `topi`, `skecel`, `samir`, `lo
 --
 
 --
--- Indeks untuk tabel `tbl_akun`
+-- Indexes for table `tbl_akun`
 --
 ALTER TABLE `tbl_akun`
   ADD PRIMARY KEY (`id_user`);
 
 --
--- Indeks untuk tabel `tbl_mhs`
+-- Indexes for table `tbl_mhs`
 --
 ALTER TABLE `tbl_mhs`
   ADD PRIMARY KEY (`id_mhs`),
   ADD UNIQUE KEY `nim` (`nim`);
 
 --
--- Indeks untuk tabel `tbl_toga`
+-- Indexes for table `tbl_toga`
 --
 ALTER TABLE `tbl_toga`
   ADD PRIMARY KEY (`id_toga`),
   ADD KEY `nimToga` (`nim`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `tbl_akun`
+-- AUTO_INCREMENT for table `tbl_akun`
 --
 ALTER TABLE `tbl_akun`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_user` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
--- AUTO_INCREMENT untuk tabel `tbl_mhs`
+-- AUTO_INCREMENT for table `tbl_mhs`
 --
 ALTER TABLE `tbl_mhs`
-  MODIFY `id_mhs` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_mhs` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT untuk tabel `tbl_toga`
+-- AUTO_INCREMENT for table `tbl_toga`
 --
 ALTER TABLE `tbl_toga`
-  MODIFY `id_toga` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_toga` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `tbl_toga`
+-- Constraints for table `tbl_toga`
 --
 ALTER TABLE `tbl_toga`
   ADD CONSTRAINT `nimToga` FOREIGN KEY (`nim`) REFERENCES `tbl_mhs` (`nim`) ON DELETE CASCADE ON UPDATE CASCADE;
