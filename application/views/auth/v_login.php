@@ -18,7 +18,7 @@
       <div class="col-lg-5 col-12">
         <div id="auth-left">
           <!-- Judul dan Subjudul -->
-          <h1 class="auth-title">Sistem Wisuda</h1>
+          <h1>Sistem Wisuda</h1>
           <p class="auth-subtitle mb-5">Sign in untuk mengakses sistem.</p>
           <!-- Form Login -->
           <form action="<?php echo site_url('Auth/process_login'); ?>" method="post">
