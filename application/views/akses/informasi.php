@@ -182,13 +182,55 @@
                                             <h4>Data Mahasiswa</h4>
                                         </div>
                                         <div class="card-body">
-                                            <div class="table-responsive">
+											<div class="row mb-4">
+												<div class="col-md-6">
+													<div class="card">
+														<div class="card-body">
+															<h6 class="card-title text-primary mb-3">Program Studi</h6>
+															<div id="prodiFilter" class="d-flex flex-wrap gap-3">
+																<?php 
+																$prodi = [
+																	'Sistem Informasi',
+																	'Teknologi Pangan',
+																	'Managemen Informasi Kesehatan',
+																	'Managemen',
+																	'Akuntansi', 
+																	'Psikologi',
+																	'Pendidikan Bahasa Inggris'
+																];
+																foreach($prodi as $p): ?>
+																<div class="form-check">
+																	<input class="form-check-input prodi-checkbox" type="checkbox" value="<?= $p ?>" id="prodi_<?= str_replace(' ', '_', $p) ?>">
+																	<label class="form-check-label" for="prodi_<?= str_replace(' ', '_', $p) ?>">
+																		<?= $p ?>
+																	</label>
+																</div>
+																<?php endforeach; ?>
+															</div>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-md-6">
+													<div class="card">
+														<div class="card-body">
+															<h6 class="card-title text-primary mb-3">Tahun Lulus</h6>
+															<div id="thnLulusFilter" class="d-flex flex-wrap gap-3">
+																<!-- Filled dynamically by AJAX -->
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+
+                                            <div class="table-responsive mt-3">
                                                 <table class="table table-lg">
                                                     <thead>
                                                         <tr>
                                                             <th>NIM</th>
                                                             <th>Status Keuangan</th>
                                                             <th>Ambil Toga</th>
+															<th>Tahun Lulus</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -230,6 +272,80 @@
             </footer>
         </div>
     </div>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        loadTahunLulus();
+        loadMahasiswa();
+
+        function loadTahunLulus() {
+            $.ajax({
+                url: "<?php echo base_url('Akses/get_tahun_lulus'); ?>",
+                type: "GET",
+                dataType: "json",
+                success: function (response) {
+                    var filterDiv = $("#thnLulusFilter");
+                    filterDiv.empty();
+                    $.each(response, function (index, tahun) {
+                        filterDiv.append('<label><input type="checkbox" class="thn-checkbox" value="' + tahun.thn_lulus + '"> ' + tahun.thn_lulus + '</label><br>');
+                    });
+
+                    // Tambahkan event listener ke checkbox
+                    $(".thn-checkbox").change(loadMahasiswa);
+                },
+                error: function (xhr, status, error) {
+                    console.log("Error loading tahun lulus: " + error);
+                }
+            });
+        }
+
+        function loadMahasiswa() {
+            var prodi = [];
+            $(".prodi-checkbox:checked").each(function () {
+                prodi.push($(this).val());
+            });
+
+            var thn_lulus = [];
+            $(".thn-checkbox:checked").each(function () {
+                thn_lulus.push($(this).val());
+            });
+
+            $.ajax({
+                url: "<?php echo base_url('Akses/get_mahasiswa_by_filter'); ?>",
+                type: "POST",
+                data: { prodi: prodi, thn_lulus: thn_lulus },
+                dataType: "json",
+                success: function (response) {
+                    var tbody = $("#mhsTableBody");
+                    tbody.empty();
+
+                    if (response.length > 0) {
+                        $.each(response, function (index, mhs) {
+                            var row = "<tr>";
+                            row += "<td>" + mhs.nim + "</td>";
+                            row += "<td>" + (mhs.sts_wsd == 1 ? "<b>Sudah Lunas</b>" : "Belum Lunas") + "</td>";
+                            row += "<td>" + (mhs.ambil_toga == 1 ? "<b>Sudah Ambil</b>" : "Belum Ambil") + "</td>";
+                            row += "<td>" + mhs.thn_lulus + "</td>";
+                            row += "</tr>";
+                            tbody.append(row);
+                        });
+                    } else {
+                        tbody.append('<tr><td colspan="4" class="text-center">Tidak ada data</td></tr>');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log("AJAX Error: " + error);
+                }
+            });
+        }
+
+        $(".prodi-checkbox").change(loadMahasiswa);
+    });
+</script>
+
+
 
     <!-- Mazor -->
     <script src="<?= base_url('assets/mazor/extensions/perfect-scrollbar/perfect-scrollbar.min.js'); ?>"></script>

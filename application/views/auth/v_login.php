@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sistem Wisuda</title>
+    <link rel="icon" href="<?= base_url('assets/img/logo.png'); ?>">
+    <title>Wisuda Unkartur</title>
     <!-- Link CSS -->
     <link rel="stylesheet" href="<?php echo base_url('assets/mazor/compiled/css/app.css'); ?>">
     <link rel="stylesheet" href="<?php echo base_url('assets/mazor/compiled/css/auth.css'); ?>">
@@ -18,8 +19,12 @@
             <div class="col-lg-5 col-12">
                 <div id="auth-left">
                     <!-- Judul dan Subjudul -->
-                    <h1>Sistem Wisuda</h1>
-                    <p class="auth-subtitle mb-5">Sign in untuk mengakses sistem.</p>
+					<div class="text-center">
+						<img src="<?= base_url('assets/img/logo.png'); ?>" style="width: 128px; height: 128px;" alt="">
+						<br>
+						<br>
+						<p class="auth-subtitle mb-5">Sistem Wisuda UNKARTUR</p>
+					</div>
                     <!-- Form Login -->
                     <form action="<?php echo site_url('Auth/process_login'); ?>" method="post">
                         <!-- Input Username -->

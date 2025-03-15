@@ -14,6 +14,7 @@
     <link rel="stylesheet" crossorigin href="<?= base_url('assets/mazor/compiled/css/iconly.css'); ?>">
     <link rel="stylesheet" href="assets/mazor/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" crossorigin="" href="assets/mazor/compiled/css/table-datatable-jquery.css">
+	<link rel="stylesheet" href="https://sets.hugeicons.com/YOUR-SET-ID.css" crossorigin="anonymous">
     <!-- Scripts -->
     <script src="<?= base_url('assets/mazor/js/scripts.js'); ?>" defer></script>
 </head>
@@ -65,9 +66,6 @@
                         </div>
                         <!-- logout  -->
                         <ul class="navbar-nav ms-auto mb-lg-0">
-							<a href="<?= base_url('adm') ?>" class="btn btn-link" style="text-decoration: none; margin-right: 2vw;">
-										<h5>Menu</h5>
-									</a>
                             <a href="<?php echo site_url('Auth/logout'); ?>" class="btn btn-danger">Logout</a>
                         </ul>
                     </div>
@@ -80,91 +78,83 @@
                 <section class="content-header">
                     <div class="container-fluid">
                         <div class="row mb-2">
-							<div class="col-sm-6">
+							<?php if ($this->session->flashdata('message')): ?>
+                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                            <?= htmlspecialchars($this->session->flashdata('message')); ?>
+                                        </div>
+                                        <?php endif; ?>
+                            <div class="col-sm-6">
                                 <h1>Dashboard Admin</h1>
 
+								
                             </div>
                         </div>
                     </div>
                 </section>
 
                 <section class="row">
-                    <div class="col-12">
+                    <!-- <div class="col-12">
                         <div class="row">
                             <div class="col-12">
                                 <div class="card">
-                                    <div class="card-body">
-                                        <?php if ($this->session->flashdata('message')): ?>
-                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                            <?= htmlspecialchars($this->session->flashdata('message')); ?>
-                                        </div>
-                                        <?php endif; ?>
-                                        <button type="button" class="btn btn-primary mb-3" data-toggle="modal"
+                                    <div class="card-body"> -->
+                                        
+                                        <!-- <button type="button" class="btn btn-primary mb-3" data-toggle="modal"
                                             data-target="#addModal">
                                             Tambah Data
                                         </button>
-                                        <?php $this->load->view('adm/table_adm'); ?>
-                                    </div>
+										<a href="<?= base_url('adm/view_kntn') ?>" class="btn btn-warning mb-3">
+                                            Manajemen Konten
+                                        </a> -->
+
+										<div class="col-6 col-lg-3 col-md-6">
+											<a href="<?= base_url('adm/view_adm') ?>">
+												<div class="card" style="align-items: center;">
+													<div class="card-header">
+														<h4>Manajemen Account</h4>
+													</div>
+													<div class="card-body">
+                                                        <img class="img-fluid" style="max-width: 100%; width: 150px;" 
+                                                            src="https://img.icons8.com/stickers/500/admin-settings-male.png" 
+                                                            alt="admin-settings-male"/>
+													</div>
+												</div>
+											</a>
+										</div>
+
+										<div class="col-6 col-lg-3 col-md-6">
+											<a href="<?= base_url('adm/view_kntn') ?>">
+												<div class="card" style="align-items: center;">
+													<div class="card-header">
+														<h4>Manajemen Konten</h4>
+													</div>
+													<div class="card-body">
+                                                        <img class="img-fluid" style="max-width: 100%; width: 150px;"
+                                                            src="https://img.icons8.com/stickers/500/content.png" 
+                                                            alt="content"/>
+													</div>
+												</div>
+											</a>
+										</div>
+                                        
+                                    <!-- </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </section>
-            </div>
-            <!-- </div> -->
 
-            <!-- Modal -->
-            <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="addModalLabel">Tambah Data Akun</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="<?php echo base_url(); ?>adm/save_akn" method="post">
-                                <div class="form-group">
-                                    <label for="username">Username</label>
-                                    <input type="text" class="form-control" id="username" name="username"
-                                        placeholder="Masukkan Username" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="password">Password</label>
-                                    <input type="password" class="form-control" id="password" name="password"
-                                        placeholder="Masukkan Password" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="status">Status</label>
-                                    <select class="form-control" id="level" name="level" required>
-                                        <option value="1">Admin</option>
-                                        <option value="2">Akademik</option>
-                                        <option value="3">Keuangan</option>
-                                        <option value="4">Toga</option>
-                                        <option value="5">Foto</option>
-                                        <option value="6">Mahasiswa</option>
-                                    </select>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <footer>
-                <!-- <div class="container"> -->
-                <div class="footer clearfix mb-0 text-muted" style="margin-left: 5vw; margin-right: 5vw;">
+				<footer>
+            <div class="container" style="margin-left: 2vw;">
+                <div class="footer clearfix mb-0 text-muted">
                     <div class="float-start">
                         <p>&copy; Sistem Informasi Wisuda. Program Studi Sistem Informasi 2025.</p>
                     </div>
                 </div>
-                <!-- </div> -->
-            </footer>
-        </div>
-    </div>
+            </div>
+        </footer>
+            </div>
+            <!-- </div> -->
 
     <!-- Mazor -->
     <script src="<?= base_url('assets/mazor/extensions/perfect-scrollbar/perfect-scrollbar.min.js'); ?>"></script>

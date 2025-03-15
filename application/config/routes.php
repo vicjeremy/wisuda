@@ -59,6 +59,15 @@ $route['keuangan'] = 'keu';
 $route['toga'] = 'toga';
 $route['foto'] = 'foto';
 $route['mahasiswa'] = 'mhs';
+
+$route['content/create'] = 'adm/create';
+$route['content/delete/(:num)'] = 'adm/delete/$1';
+$route['content/edit'] = 'adm/edit';
+$route['content/update_order'] = 'adm/update_order';
+$route['content/filter_content'] = 'adm/filter_content';
+$route['content/(:any)'] = 'adm/view_kntn/$1';
+$route['content'] = 'adm/view_kntn';
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 $route['profile'] = 'user/profile';

@@ -50,6 +50,44 @@ class M_akses extends CI_Model {
         $query = $this->db->get();
         return $query->row()->tamu; // Mengembalikan total tamu
     }
+	public function getMahasiswaByProdi($prodi) {
+        $this->db->select('nim, sts_wsd, ambil_toga');
+        $this->db->from('tbl_mhs');
+        $this->db->where('prodi', $prodi);
+        
+        $query = $this->db->get();
+        $result = $query->result_array();
+    
+        // Debugging
+        error_log("Query untuk prodi: " . $prodi);
+        error_log("Result: " . print_r($result, true));
+    
+        return $result;
+    }
 
+    public function getTahunLulus() {
+        $this->db->select('DISTINCT(thn_lulus)', false);
+        $this->db->from('tbl_mhs');
+        $this->db->order_by('thn_lulus', 'ASC');
+    
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+    
+    public function getMahasiswaByFilter($prodi, $thn_lulus) {
+        $this->db->select('nim, sts_wsd, ambil_toga, thn_lulus');
+        $this->db->from('tbl_mhs');
+    
+        if (!empty($prodi)) {
+            $this->db->where_in('prodi', $prodi);
+        }
+        if (!empty($thn_lulus)) {
+            $this->db->where_in('thn_lulus', $thn_lulus);
+        }
+    
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 
+	
 }

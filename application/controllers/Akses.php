@@ -40,12 +40,8 @@ class Akses extends CI_Controller
 		} elseif ($level == 1) { // Admin
 			redirect('admin');
 		} else {
-			// $data['student_count'] = $this->M_akses->count_students();
-			// $data['paid_students'] = $this->M_akses->count_paid_students();
-			// $data['sudah_ambil'] = $this->M_akses->count_ambil_toga();
-			// $data['tamu'] = $this->M_akses->count_tamu();
-			// $data['mhs_data'] = $this->M_akses->get_mhs_data();
-			$this->load->view('akses/home');
+			$data['konten'] = $this->M_adm->get_all_contents();
+			$this->load->view('akses/home', $data);
 		}
 
 	}
@@ -58,5 +54,46 @@ class Akses extends CI_Controller
 		$data['tamu'] = $this->M_akses->count_tamu();
 		$data['mhs_data'] = $this->M_akses->get_mhs_data();
 		$this->load->view('akses/informasi', $data);
+	}
+	public function get_mahasiswa_by_prodi() {
+		$prodi = $this->input->post('prodi');
+	
+		if (!empty($prodi)) {
+			$this->load->model('M_akses'); // Load model
+			$data = $this->M_akses->getMahasiswaByProdi($prodi);
+	
+			// Debugging
+			error_log("Prodi diterima: " . $prodi);
+			error_log("Hasil Query: " . print_r($data, true));
+	
+			echo json_encode($data);
+		} else {
+			error_log("Prodi kosong, mengembalikan array kosong.");
+			echo json_encode([]);
+		}
+	}
+
+	public function get_tahun_lulus() {
+		$this->load->model('M_akses');
+		$data = $this->M_akses->getTahunLulus();
+		echo json_encode($data);
+	}
+	
+	public function get_mahasiswa_by_filter() {
+		$prodi = $this->input->post('prodi');
+		$thn_lulus = $this->input->post('thn_lulus');
+	
+		if (!is_array($prodi)) {
+			$prodi = [];
+		}
+	
+		if (!is_array($thn_lulus)) {
+			$thn_lulus = [];
+		}
+	
+		$this->load->model('M_akses');
+		$data = $this->M_akses->getMahasiswaByFilter($prodi, $thn_lulus);
+	
+		echo json_encode($data);
 	}
 }
