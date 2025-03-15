@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Waktu pembuatan: 15 Mar 2025 pada 06.47
+-- Waktu pembuatan: 15 Mar 2025 pada 07.38
 -- Versi server: 10.4.27-MariaDB
 -- Versi PHP: 7.4.33
 
@@ -96,6 +96,7 @@ CREATE TABLE `tbl_mhs` (
   `tgl_lahir` varchar(255) DEFAULT 'Belum Diatur',
   `fakultas` varchar(50) DEFAULT 'Belum Diatur',
   `prodi` varchar(50) DEFAULT 'Belum Diatur',
+  `thn_lulus` varchar(50) NOT NULL,
   `ipk` float DEFAULT 0,
   `skripsi` varchar(255) DEFAULT 'Belum Diatur',
   `alamat` varchar(255) DEFAULT 'Belum Diatur',
@@ -116,9 +117,9 @@ CREATE TABLE `tbl_mhs` (
 -- Dumping data untuk tabel `tbl_mhs`
 --
 
-INSERT INTO `tbl_mhs` (`id_mhs`, `nim`, `nama`, `lok_lahir`, `tgl_lahir`, `fakultas`, `prodi`, `ipk`, `skripsi`, `alamat`, `email`, `hp`, `size`, `ambil_toga`, `foto_almet`, `foto_keluarga`, `sts_foto`, `tamu`, `sts_wsd`, `sts_toga`, `sts_tamu`) VALUES
-(1, 'mhs', 'nama', 'smg', '050225', 'asd', 'asd', 4, 'asd', 'Semarang', 'mhs@unkartur.com', '01234567890', 'XL', 1, 'https://drive.google.com/file/d/1C5qx80Wm10BQjQPBrcuNH44yYnvIZEEF/view?usp=sharing', 'https://drive.google.com/file/d/1C5qx80Wm10BQjQPBrcuNH44yYnvIZEEF/view?usp=sharing', 3, 1, 0, 1, 0),
-(8, 'A01.051.005', 'John Doe', 'Semarang', '120104', 'Sains dan Teknologi', 'Sistem Informasi', 3.5, 'Belum Diatur', 'Belum Diatur', 'Belum Diatur', 'Belum Diatur', 'Belum Diatur', 0, 'Belum Diatur', 'Belum Diatur', 3, 0, 0, 0, NULL);
+INSERT INTO `tbl_mhs` (`id_mhs`, `nim`, `nama`, `lok_lahir`, `tgl_lahir`, `fakultas`, `prodi`, `thn_lulus`, `ipk`, `skripsi`, `alamat`, `email`, `hp`, `size`, `ambil_toga`, `foto_almet`, `foto_keluarga`, `sts_foto`, `tamu`, `sts_wsd`, `sts_toga`, `sts_tamu`) VALUES
+(1, 'mhs', 'nama', 'smg', '050225', 'asd', 'Teknologi Pangan', '2024/2025', 4, 'asd', 'Semarang', 'mhs@unkartur.com', '01234567890', 'XL', 1, 'https://drive.google.com/file/d/1C5qx80Wm10BQjQPBrcuNH44yYnvIZEEF/view?usp=sharing', 'https://drive.google.com/file/d/1C5qx80Wm10BQjQPBrcuNH44yYnvIZEEF/view?usp=sharing', 3, 1, 0, 1, 0),
+(8, 'A01.051.005', 'John Doe', 'Semarang', '120104', 'Sains dan Teknologi', 'Sistem Informasi', '2022/2023', 3.5, 'Belum Diatur', 'Belum Diatur', 'Belum Diatur', 'Belum Diatur', 'Belum Diatur', 0, 'Belum Diatur', 'Belum Diatur', 3, 0, 0, 0, NULL);
 
 -- --------------------------------------------------------
 

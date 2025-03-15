@@ -233,7 +233,7 @@
 															<th>Tahun Lulus</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
+                                                    <tbody id="mhsTableBody">
                                                         <?php if (!empty($mhs_data)): ?>
                                                         <?php foreach ($mhs_data as $mhs): ?>
                                                         <tr>
@@ -241,7 +241,9 @@
                                                             <td><?php echo $mhs['sts_wsd'] == 1 ? '<b>Sudah Lunas</b>' : 'Belum Lunas'; ?>
                                                             </td>
                                                             <td><?php echo $mhs['ambil_toga'] == 1 ? '<b>Sudah Ambil</b>' : 'Belum Ambil'; ?>
+															
                                                             </td>
+															<td><?php echo isset($mhs['thn_lulus']) ? $mhs['thn_lulus'] : ''; ?></td>
                                                         </tr>
                                                         <?php endforeach; ?>
                                                         <?php else: ?>
@@ -276,73 +278,94 @@
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    $(document).ready(function () {
-        loadTahunLulus();
-        loadMahasiswa();
+	$(document).ready(function () {
+	// Load the tahun lulus options and initial data
+	loadTahunLulus();
+	
+	// Use event delegation for dynamically added elements
+	$("#thnLulusFilter").on("change", ".thn-checkbox", function() {
+		loadMahasiswa();
+	});
+	
+	// Use event delegation for static elements as well for consistency
+	$("#prodiFilter").on("change", ".prodi-checkbox", function() {
+		loadMahasiswa();
+	});
+	
+	function loadTahunLulus() {
+		$.ajax({
+			url: "<?php echo base_url('Akses/get_tahun_lulus'); ?>",
+			type: "GET",
+			dataType: "json",
+			success: function (response) {
+				var filterDiv = $("#thnLulusFilter");
+				filterDiv.empty();
+				
+				if (response && response.length > 0) {
+					$.each(response, function (index, tahun) {
+						filterDiv.append('<div class="form-check">' +
+							'<input class="form-check-input thn-checkbox" type="checkbox" value="' + tahun.thn_lulus + '" id="thn_' + tahun.thn_lulus + '">' +
+							'<label class="form-check-label" for="thn_' + tahun.thn_lulus + '">' + tahun.thn_lulus + '</label>' +
+							'</div>');
+					});
+				} else {
+					filterDiv.html('<p>Tidak ada data tahun lulus</p>');
+				}
+				
+				// After loading years, load the initial data
+				loadMahasiswa();
+			},
+			error: function (xhr, status, error) {
+				console.log("Error loading tahun lulus: " + error);
+				$("#thnLulusFilter").html('<p class="text-danger">Error loading data</p>');
+				loadMahasiswa(); // Still try to load data even if years fail
+			}
+		});
+	}
 
-        function loadTahunLulus() {
-            $.ajax({
-                url: "<?php echo base_url('Akses/get_tahun_lulus'); ?>",
-                type: "GET",
-                dataType: "json",
-                success: function (response) {
-                    var filterDiv = $("#thnLulusFilter");
-                    filterDiv.empty();
-                    $.each(response, function (index, tahun) {
-                        filterDiv.append('<label><input type="checkbox" class="thn-checkbox" value="' + tahun.thn_lulus + '"> ' + tahun.thn_lulus + '</label><br>');
-                    });
+	function loadMahasiswa() {
+		var prodi = [];
+		$(".prodi-checkbox:checked").each(function () {
+			prodi.push($(this).val());
+		});
 
-                    // Tambahkan event listener ke checkbox
-                    $(".thn-checkbox").change(loadMahasiswa);
-                },
-                error: function (xhr, status, error) {
-                    console.log("Error loading tahun lulus: " + error);
-                }
-            });
-        }
+		var thn_lulus = [];
+		$(".thn-checkbox:checked").each(function () {
+			thn_lulus.push($(this).val());
+		});
+		
+		console.log("Filtering by prodi:", prodi, "and years:", thn_lulus);
 
-        function loadMahasiswa() {
-            var prodi = [];
-            $(".prodi-checkbox:checked").each(function () {
-                prodi.push($(this).val());
-            });
+		$.ajax({
+			url: "<?php echo base_url('Akses/get_mahasiswa_by_filter'); ?>",
+			type: "POST",
+			data: { prodi: prodi, thn_lulus: thn_lulus },
+			dataType: "json",
+			success: function (response) {
+				var tbody = $("#mhsTableBody");
+				tbody.empty();
 
-            var thn_lulus = [];
-            $(".thn-checkbox:checked").each(function () {
-                thn_lulus.push($(this).val());
-            });
-
-            $.ajax({
-                url: "<?php echo base_url('Akses/get_mahasiswa_by_filter'); ?>",
-                type: "POST",
-                data: { prodi: prodi, thn_lulus: thn_lulus },
-                dataType: "json",
-                success: function (response) {
-                    var tbody = $("#mhsTableBody");
-                    tbody.empty();
-
-                    if (response.length > 0) {
-                        $.each(response, function (index, mhs) {
-                            var row = "<tr>";
-                            row += "<td>" + mhs.nim + "</td>";
-                            row += "<td>" + (mhs.sts_wsd == 1 ? "<b>Sudah Lunas</b>" : "Belum Lunas") + "</td>";
-                            row += "<td>" + (mhs.ambil_toga == 1 ? "<b>Sudah Ambil</b>" : "Belum Ambil") + "</td>";
-                            row += "<td>" + mhs.thn_lulus + "</td>";
-                            row += "</tr>";
-                            tbody.append(row);
-                        });
-                    } else {
-                        tbody.append('<tr><td colspan="4" class="text-center">Tidak ada data</td></tr>');
-                    }
-                },
-                error: function (xhr, status, error) {
-                    console.log("AJAX Error: " + error);
-                }
-            });
-        }
-
-        $(".prodi-checkbox").change(loadMahasiswa);
-    });
+				if (response && response.length > 0) {
+					$.each(response, function (index, mhs) {
+						var row = "<tr>";
+						row += "<td>" + mhs.nim + "</td>";
+						row += "<td>" + (mhs.sts_wsd == 1 ? "<b>Sudah Lunas</b>" : "Belum Lunas") + "</td>";
+						row += "<td>" + (mhs.ambil_toga == 1 ? "<b>Sudah Ambil</b>" : "Belum Ambil") + "</td>";
+						row += "<td>" + (mhs.thn_lulus || '-') + "</td>";
+						row += "</tr>";
+						tbody.append(row);
+					});
+				} else {
+					tbody.html('<tr><td colspan="4" class="text-center">Tidak ada data yang sesuai dengan filter</td></tr>');
+				}
+			},
+			error: function (xhr, status, error) {
+				console.error("AJAX Error:", error);
+				$("#mhsTableBody").html('<tr><td colspan="4" class="text-center text-danger">Gagal memuat data</td></tr>');
+			}
+		});
+	}
+});
 </script>
 
 
