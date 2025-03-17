@@ -61,7 +61,7 @@ class Akd extends CI_Controller
 
 	private function process_excel($rows)
 	{
-		$expectedHeader = ['No', 'Nama', 'Tempat Lahir', 'Tanggal Lahir', 'NIM', 'Fakultas', 'Prog_studi', 'IPK'];
+		$expectedHeader = ['No', 'Nama', 'Tempat Lahir', 'Tanggal Lahir', 'NIM', 'Fakultas', 'Prog_studi', 'IPK', 'Tahun Lulus'];
 		$actualHeader = array_map('trim', $rows[0] ?? []);
 
 		if ($actualHeader !== $expectedHeader) {
@@ -91,7 +91,8 @@ class Akd extends CI_Controller
 				'tgl_lahir' => $tgl_lahir,
 				'fakultas' => $row[5] ?? null,
 				'prodi' => $row[6] ?? null,
-				'ipk' => $row[7] ?? null
+				'ipk' => $row[7] ?? null,
+				'thn_lulus' => $row[8]
 			];
 
 			$this->M_akd->insert_data($data_mhs);
@@ -133,75 +134,20 @@ class Akd extends CI_Controller
 
 
 	private function convert_date($date) 
-	{
-		if (empty($date)) {
-			return null;
-		}
+{
+    if (empty($date)) {
+        return null;
+    }
 
-		// Try HTML date format first (YYYY-MM-DD)
-		$date_obj = DateTime::createFromFormat('Y-m-d', $date);
-		if ($date_obj) {
-			return $date_obj->format('dmy');
-		}
+    // Pastikan format sudah YYYY-MM-DD
+    $date_obj = DateTime::createFromFormat('Y-m-d', $date);
+    if ($date_obj) {
+        return $date_obj->format('Y-m-d'); // Gunakan format yang sesuai untuk database
+    }
 
-		// Map bulan dalam bahasa Indonesia
-		$month_map = [
-			'Januari' => '01',
-			'Februari' => '02', 
-			'Maret' => '03',
-			'April' => '04',
-			'Mei' => '05',
-			'Juni' => '06',
-			'Juli' => '07', 
-			'Agustus' => '08',
-			'September' => '09',
-			'Oktober' => '10',
-			'November' => '11',
-			'Desember' => '12'
-		];
+    return null; // Jika format tidak sesuai
+}
 
-		// Bersihkan input
-		$date = trim($date);
-
-		// Coba format dengan nama bulan (12 April 2004)
-		if (strpos($date, ' ') !== false) {
-			$parts = explode(' ', $date);
-			if (count($parts) === 3) {
-				$day = str_pad($parts[0], 2, '0', STR_PAD_LEFT);
-				$month = $month_map[$parts[1]] ?? null;
-				$year = $parts[2];
-				
-				if ($month) {
-					$year = substr($year, -2); // Ambil 2 digit terakhir
-					return $day . $month . $year;
-				}
-			}
-		}
-
-		// Handle format dengan separator (12-04-2004, 12/04/2004, dll)
-		$date = preg_replace('/[^0-9-\/]/', '', $date);
-		$separators = ['-', '/'];
-		
-		foreach ($separators as $separator) {
-			if (strpos($date, $separator) !== false) {
-				$parts = explode($separator, $date);
-				if (count($parts) === 3) {
-					$day = str_pad($parts[0], 2, '0', STR_PAD_LEFT);
-					$month = str_pad($parts[1], 2, '0', STR_PAD_LEFT);
-					$year = $parts[2];
-
-					if ($day > 31 || $month > 12) {
-						continue;
-					}
-
-					$year = substr($year, -2);
-					return $day . $month . $year;
-				}
-			}
-		}
-
-		return null;
-	}
 	
 	
 
@@ -220,7 +166,8 @@ class Akd extends CI_Controller
 			'tgl_lahir' => $this->convert_date($this->input->post('tgl_lahir')),
 			'fakultas' => $this->input->post('fakultas'),
 			'prodi' => $this->input->post('prodi'),
-			'ipk' => $this->input->post('ipk')
+			'ipk' => $this->input->post('ipk'),
+			'thn_lulus' => $this->input->post('thn_lulus')
 		];
 
 		$nim = $this->input->post('nim');
@@ -241,8 +188,8 @@ class Akd extends CI_Controller
 
 	public function download()
 	{
-		$header = [['No', 'Nama', 'Tempat Lahir', 'Tanggal Lahir', 'NIM', 'Fakultas', 'Prog_studi', 'IPK']];
-		$rows = [[1, 'John Doe', 'Semarang', '12 Januari 2004', 'A01.051.005', 'Sains dan Teknologi', 'Sistem Informasi', 3.50]];
+		$header = [['No', 'Nama', 'Tempat Lahir', 'Tanggal Lahir', 'NIM', 'Fakultas', 'Prog_studi', 'IPK', 'Tahun Lulus']];
+		$rows = [[1, 'John Doe', 'Semarang', '12 Januari 2004', 'A01.051.005', 'Sains dan Teknologi', 'Sistem Informasi', 3.50, 2018]];
 		$data = array_merge($header, $rows);
 
 		$xlsx = SimpleXLSXGen::fromArray($data);
@@ -256,4 +203,48 @@ class Akd extends CI_Controller
 		$this->load->view($view, $data);
 		$this->load->view('tpl/script');
 	}
+
+	// FILTER 
+	public function get_mahasiswa_by_prodi() {
+		$prodi = $this->input->post('prodi');
+	
+		if (!empty($prodi)) {
+			$this->load->model('M_akd'); // Load model
+			$data = $this->M_akd->getMahasiswaByProdi($prodi);
+	
+			// Debugging
+			error_log("Prodi diterima: " . $prodi);
+			error_log("Hasil Query: " . print_r($data, true));
+	
+			echo json_encode($data);
+		} else {
+			error_log("Prodi kosong, mengembalikan array kosong.");
+			echo json_encode([]);
+		}
+	}
+
+	public function get_tahun_lulus() {
+		$this->load->model('M_akd');
+		$data = $this->M_akd->getTahunLulus();
+		echo json_encode($data);
+	}
+
+	public function get_mahasiswa_by_filter() {
+		$thn_lulus = $this->input->post('thn_lulus');
+		$prodi = $this->input->post('prodi');
+
+		if (!is_array($thn_lulus)) {
+			$thn_lulus = [];
+		}
+
+		if (!is_array($prodi)) {
+			$prodi = [];
+		}
+
+		$this->load->model('M_akd');
+		$data = $this->M_akd->getMahasiswaByFilter($thn_lulus, $prodi);
+
+		echo json_encode($data);
+	}
+
 }

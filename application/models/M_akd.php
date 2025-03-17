@@ -49,4 +49,47 @@ class M_akd extends CI_Model {
         // Menyimpan data ke dalam tabel tbl_akun
         $this->db->insert('tbl_akun', $data_akun);
     }
+
+   //FILTER
+    public function getTahunLulus() {
+        $this->db->distinct();
+        $this->db->select('thn_lulus');
+        $this->db->from('tbl_mhs');
+        $this->db->order_by('thn_lulus', 'ASC');
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
+    public function getMahasiswaByProdi($prodi) {
+        $this->db->select('nim, sts_wsd, ambil_toga');
+        $this->db->from('tbl_mhs');
+        $this->db->where('prodi', $prodi);
+        
+        $query = $this->db->get();
+        $result = $query->result_array();
+
+        // Debugging
+        error_log("Query untuk prodi: " . $prodi);
+        error_log("Result: " . print_r($result, true));
+
+        return $result;
+    }
+
+    public function getMahasiswaByFilter($thn_lulus = [], $prodi = []) {
+        $this->db->select('nim, nama, lok_lahir, tgl_lahir, fakultas, prodi, ipk, thn_lulus');
+        $this->db->from('tbl_mhs');
+
+        if (!empty($thn_lulus)) {
+            $this->db->where_in('thn_lulus', $thn_lulus);
+        }
+
+        if (!empty($prodi)) {
+            $this->db->where_in('prodi', $prodi);
+        }
+
+        $query = $this->db->get();
+        return $query->result_array();
+    }
+
 }

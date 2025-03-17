@@ -1,4 +1,4 @@
-              <div class="container">
+<div class="container">
                 <?php if ($this->session->flashdata('update_success')): ?>
                   <div class="alert alert-success alert-dismissible fade show" role="alert">
                     Data berhasil diupdate.
@@ -45,6 +45,10 @@
                         <div class="form-group">
                           <label for="ipk">IPK</label>
                           <input type="text" class="form-control" id="ipk" name="ipk" required>
+                        </div>
+                        <div class="form-group">
+                          <label for="thn_lulus">Tahun Lulus</label>
+                          <input type="text" class="form-control" id="thn_lulus" name="thn_lulus" required>
                         </div>
                         <!-- Add more form fields as needed -->
                         <button type="submit" class="btn btn-primary">Submit</button>
