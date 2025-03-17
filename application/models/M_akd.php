@@ -50,6 +50,13 @@ class M_akd extends CI_Model {
         $this->db->insert('tbl_akun', $data_akun);
     }
 
+    public function update_akun($nim, $data)
+    {
+        $this->db->where('user', $nim);
+        $this->db->update('akun', $data);
+    }
+
+
    //FILTER
     public function getTahunLulus() {
         $this->db->distinct();

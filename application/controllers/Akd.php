@@ -134,19 +134,19 @@ class Akd extends CI_Controller
 
 
 	private function convert_date($date) 
-{
-    if (empty($date)) {
-        return null;
-    }
+	{
+		if (empty($date)) {
+			return null;
+		}
 
-    // Pastikan format sudah YYYY-MM-DD
-    $date_obj = DateTime::createFromFormat('Y-m-d', $date);
-    if ($date_obj) {
-        return $date_obj->format('Y-m-d'); // Gunakan format yang sesuai untuk database
-    }
+		// Pastikan format sudah YYYY-MM-DD
+		$date_obj = DateTime::createFromFormat('Y-m-d', $date);
+		if ($date_obj) {
+			return $date_obj->format('Y-m-d'); // Gunakan format yang sesuai untuk database
+		}
 
-    return null; // Jika format tidak sesuai
-}
+		return null; // Jika format tidak sesuai
+	}
 
 	
 	
@@ -171,6 +171,9 @@ class Akd extends CI_Controller
 		];
 
 		$nim = $this->input->post('nim');
+
+		
+
 		$this->M_akd->update_mhs($nim, $data);
 		$this->session->set_flashdata('update_success', true);
 		redirect('akd/index');
