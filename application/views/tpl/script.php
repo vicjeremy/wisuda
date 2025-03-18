@@ -83,44 +83,31 @@
 </script>
 <script>
     $('#editModal').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget);
-        var nim = button.data('nim');
-        var nama = button.data('nama');
-        var tgl_lahir = button.data('tgl_lahir'); 
-        var fakultas = button.data('fakultas');
-        var prodi = button.data('prodi');
-        var ipk = button.data('ipk');
-        var thn_lulus = button.data('thn_lulus');
+    var button = $(event.relatedTarget);
+    var nim = button.data('nim');
+    var nama = button.data('nama');
+    var tgl_lahir = button.data('tgl_lahir'); // Apakah ini berformat YYYY-MM-DD?
+    var fakultas = button.data('fakultas');
+    var prodi = button.data('prodi');
+    var ipk = button.data('ipk');
+    var thn_lulus = button.data('thn_lulus');
 
-        console.log("Sebelum Konversi - Tanggal Lahir (Tipe Data):", typeof tgl_lahir, "-", tgl_lahir);
+    // Debugging
+    console.log("🔍 Data diterima di Modal:");
+    console.log("NIM:", nim);
+    console.log("Nama:", nama);
+    console.log("Tanggal Lahir:", tgl_lahir); // Apakah ini tampil di console?
+    
+    var modal = $(this);
+    modal.find('.modal-body #nim').val(nim);
+    modal.find('.modal-body #nama').val(nama);
+    modal.find('.modal-body #tgl_lahir').val(tgl_lahir);
+    modal.find('.modal-body #fakultas').val(fakultas);
+    modal.find('.modal-body #prodi').val(prodi);
+    modal.find('.modal-body #ipk').val(ipk);
+    modal.find('.modal-body #thn_lulus').val(thn_lulus);
+});
 
-        // Jika data bukan string, konversi ke string terlebih dahulu
-        if (tgl_lahir && typeof tgl_lahir !== "string") {
-            tgl_lahir = String(tgl_lahir);
-        }
-
-        if (tgl_lahir.length === 6) {
-            var year = parseInt(tgl_lahir.substring(0, 2), 10);
-            var month = tgl_lahir.substring(2, 4);
-            var day = tgl_lahir.substring(4, 6);
-
-            // Jika year kurang dari 50, asumsikan 2000-an, jika lebih, asumsikan 1900-an
-            year = year < 50 ? "20" + year : "19" + year;
-
-            tgl_lahir = year + "-" + month + "-" + day;
-        }
-
-        console.log("Setelah Konversi - Tanggal Lahir:", tgl_lahir);
-
-        var modal = $(this);
-        modal.find('.modal-body #nim').val(nim);
-        modal.find('.modal-body #nama').val(nama);
-        modal.find('.modal-body #tgl_lahir').val(tgl_lahir); 
-        modal.find('.modal-body #fakultas').val(fakultas);
-        modal.find('.modal-body #prodi').val(prodi);
-        modal.find('.modal-body #ipk').val(ipk);
-        modal.find('.modal-body #thn_lulus').val(thn_lulus);
-    });
 </script>
 <script>
     $(function() {

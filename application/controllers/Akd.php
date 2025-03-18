@@ -160,24 +160,44 @@ class Akd extends CI_Controller
 	}
 
 	public function update()
-	{
-		$data = [
-			'nama' => $this->input->post('nama'),
-			'tgl_lahir' => $this->convert_date($this->input->post('tgl_lahir')),
-			'fakultas' => $this->input->post('fakultas'),
-			'prodi' => $this->input->post('prodi'),
-			'ipk' => $this->input->post('ipk'),
-			'thn_lulus' => $this->input->post('thn_lulus')
-		];
+{
+    $nim = $this->input->post('nim');
+    $nama = $this->input->post('nama');
+    $tgl_lahir_input = $this->input->post('tgl_lahir');
+    $fakultas = $this->input->post('fakultas');
+    $prodi = $this->input->post('prodi');
+    $ipk = $this->input->post('ipk');
+    $thn_lulus = $this->input->post('thn_lulus');
 
-		$nim = $this->input->post('nim');
+    // Ambil data mahasiswa sebelum update
+    $mahasiswa_lama = $this->M_akd->get_mhs_by_nim($nim);
 
-		
+    // Konversi tanggal lahir ke format 'ddmmyy' untuk password
+    $password_baru = date('dmy', strtotime($tgl_lahir_input));
 
-		$this->M_akd->update_mhs($nim, $data);
-		$this->session->set_flashdata('update_success', true);
-		redirect('akd/index');
-	}
+    // Jika tanggal lahir berubah, update password di tbl_akun
+    if ($mahasiswa_lama && $mahasiswa_lama['tgl_lahir'] != $tgl_lahir_input) {
+        $this->M_akd->update_password($nim, md5($password_baru));
+    }
+
+    // Update data mahasiswa di tbl_mhs
+    $this->M_akd->update_mhs($nim, [
+        'nama' => $nama,
+        'tgl_lahir' => $tgl_lahir_input,
+        'fakultas' => $fakultas,
+        'prodi' => $prodi,
+        'ipk' => $ipk,
+        'thn_lulus' => $thn_lulus
+    ]);
+
+    // Set flashdata untuk notifikasi
+    $this->session->set_flashdata('update_success', 'Data berhasil diperbarui.');
+
+    // Redirect kembali ke halaman index
+    redirect('akd/index');
+}
+
+
 
 	public function delete($nim)
 	{

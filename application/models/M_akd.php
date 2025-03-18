@@ -31,8 +31,16 @@ class M_akd extends CI_Model {
 	public function get_mhs_by_nim($nim) {
         $this->db->where('nim', $nim);
         $query = $this->db->get('tbl_mhs');
-        return $query->row_array();
+        $result = $query->row_array();
+    
+        // Pastikan format tanggal lahir menjadi 'YYYY-MM-DD'
+        if (!empty($result['tgl_lahir'])) {
+            $result['tgl_lahir'] = date('Y-m-d', strtotime($result['tgl_lahir']));
+        }
+    
+        return $result;
     }
+    
 
 	public function update_mhs($nim, $data) {
         $this->db->where('nim', $nim);
@@ -50,12 +58,11 @@ class M_akd extends CI_Model {
         $this->db->insert('tbl_akun', $data_akun);
     }
 
-    public function update_akun($nim, $data)
+    public function update_password($nim, $password)
     {
         $this->db->where('user', $nim);
-        $this->db->update('akun', $data);
-    }
-
+        $this->db->update('tbl_akun', ['pass' => $password]);
+    }    
 
    //FILTER
     public function getTahunLulus() {

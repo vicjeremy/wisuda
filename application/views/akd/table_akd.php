@@ -69,7 +69,7 @@
                     <td>
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal"
                             data-nim="<?php echo $value['nim']; ?>" data-nama="<?php echo $value['nama']; ?>"
-                            data-tgl_lahir="<?php echo date('Y-m-d', strtotime($value['tgl_lahir'])); ?>"
+                            data-tgl_lahir="<?= date('Y-m-d', strtotime($mhs['tgl_lahir'])); ?>"
                             data-fakultas="<?php echo $value['fakultas']; ?>" data-prodi="<?php echo $value['prodi']; ?>"
                             data-ipk="<?php echo $value['ipk']; ?>" data-thn_lulus="<?php echo $value['thn_lulus']; ?>">
                             Edit
